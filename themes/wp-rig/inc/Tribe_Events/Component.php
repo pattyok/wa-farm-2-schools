@@ -26,7 +26,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *
 	 * @return string Component slug.
 	 */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return 'tribe_events';
 	}
 
@@ -41,7 +41,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		 * @see https://theeventscalendar.com/knowledgebase/k/remove-events-from-the-wordpress-admin-bar/
 		 */
 		define( 'TRIBE_DISABLE_TOOLBAR_ITEMS', true );
-
 	}
 
 	/**
@@ -51,7 +50,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *               a callable or an array with key 'callable'. This approach is used to reserve the possibility of
 	 *               adding support for further arguments in the future.
 	 */
-	public function template_tags() : array {
+	public function template_tags(): array {
 		return array(
 			'is_tribe_view' => array( $this, 'is_tribe_view' ),
 		);
@@ -135,7 +134,4 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		);
 		return $template;
 	}
-
 }
-
-

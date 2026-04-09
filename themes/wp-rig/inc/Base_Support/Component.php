@@ -35,7 +35,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *
 	 * @return string Component slug.
 	 */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return 'base_support';
 	}
 
@@ -53,7 +53,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ), 40 );
 		add_filter(
 			'safe_style_css',
-			function( $styles ) {
+			function ( $styles ) {
 				$styles[] = 'display';
 				return $styles;
 			}
@@ -67,7 +67,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *               a callable or an array with key 'callable'. This approach is used to reserve the possibility of
 	 *               adding support for further arguments in the future.
 	 */
-	public function template_tags() : array {
+	public function template_tags(): array {
 		return array(
 			'get_version'       => array( $this, 'get_version' ),
 			'get_asset_version' => array( $this, 'get_asset_version' ),
@@ -102,7 +102,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 		// Add support for responsive embedded content.
 		add_theme_support( 'responsive-embeds' );
-
 	}
 
 	/**
@@ -120,7 +119,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param array $classes Classes for the body element.
 	 * @return array Filtered body classes.
 	 */
-	public function filter_body_classes_add_hfeed( array $classes ) : array {
+	public function filter_body_classes_add_hfeed( array $classes ): array {
 		if ( ! is_singular() ) {
 			$classes[] = 'hfeed';
 		}
@@ -134,7 +133,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param array $dimensions An array of embed width and height values in pixels (in that order).
 	 * @return array Filtered dimensions array.
 	 */
-	public function filter_embed_dimensions( array $dimensions ) : array {
+	public function filter_embed_dimensions( array $dimensions ): array {
 		$dimensions['width'] = 720;
 		return $dimensions;
 	}
@@ -147,7 +146,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param array $exclusions the default directories to exclude.
 	 * @return array Filtered exclusions.
 	 */
-	public function filter_scandir_exclusions_for_optional_templates( array $exclusions ) : array {
+	public function filter_scandir_exclusions_for_optional_templates( array $exclusions ): array {
 		return array_merge(
 			$exclusions,
 			array( 'optional' )
@@ -165,7 +164,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param string $handle The script handle.
 	 * @return string Script HTML string.
 	 */
-	public function filter_script_loader_tag( string $tag, string $handle ) : string {
+	public function filter_script_loader_tag( string $tag, string $handle ): string {
 
 		foreach ( array( 'async', 'defer' ) as $attr ) {
 			if ( ! wp_scripts()->get_data( $handle, $attr ) ) {
@@ -189,7 +188,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *
 	 * @return string Theme version number.
 	 */
-	public function get_version() : string {
+	public function get_version(): string {
 		static $theme_version = null;
 		if ( null === $theme_version ) {
 			$theme_version = wp_get_theme( get_template() )->get( 'Version' );
@@ -206,7 +205,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param string $filepath Asset file path.
 	 * @return string Asset version number.
 	 */
-	public function get_asset_version( string $filepath ) : string {
+	public function get_asset_version( string $filepath ): string {
 
 			return (string) filemtime( $filepath );
 	}
@@ -283,7 +282,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 		$sorted_dashboard                             = array_merge( $my_widget, $dashboard );
 		$wp_meta_boxes['dashboard']['normal']['core'] = $sorted_dashboard; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-
 	}
 
 
@@ -296,5 +294,4 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			echo wp_kses_post( '<div class="ck-welcome">' . $content . '</div>' );
 		}
 	}
-
 }

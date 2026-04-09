@@ -1,30 +1,30 @@
 .wp-block-carkeek-blocks-custom-archive.post-type-studiog_people {
-    & .ck-modal-item-name,
-    & .ck-custom-archive-title_link {
-        font-size: 1.5rem;
-        font-weight: 700;
-    }
-    & .ck-custom-archive-item-meta-before-excerpt {
-        font-weight: 300;
-    }
-    & .ck-modal-item-image img {
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-    }
+	& .ck-modal-item-name,
+	& .ck-custom-archive-title_link {
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+	& .ck-custom-archive-item-meta-before-excerpt {
+		font-weight: 300;
+	}
+	& .ck-modal-item-image img {
+		aspect-ratio: 1 / 1;
+		object-fit: cover;
+	}
 }
 
 .wp-block-carkeek-blocks-custom-archive.post-type-studiog_project {
-    & .ck-custom-archive-title-header {
-        font-size: 1.5rem;
-        margin-bottom: 0;
-        & a {
-            color: inherit;
-        }
-    }
-    & .project-type {
-        font-weight: 500;
-    }
-    & .project-location {
-        font-weight: 300;
-    }
+	& .ck-custom-archive-title-header {
+		font-size: 1.5rem;
+		margin-bottom: 0;
+		& a {
+			color: inherit;
+		}
+	}
+	& .project-type {
+		font-weight: 500;
+	}
+	& .project-location {
+		font-weight: 300;
+	}
 }

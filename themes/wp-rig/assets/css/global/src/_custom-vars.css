@@ -8,7 +8,7 @@ $global: var(--wp--preset--color--contrast);
 $primary: var(--wp--preset--color--primary); /**  green **/
 $secondary: var(--wp--preset--color--secondary); /** blue **/
 $accent1: var(--wp--preset--color--accent); /** orange */
-$accent2: var(--wp--preset--color--accent); /** gold */
+$accent2: var(--wp--preset--color--accent-2); /** gold */
 $accent3: var(--wp--preset--color--accent);
 $background: var(--wp--preset--color--white);
 
@@ -20,22 +20,22 @@ $gray800: var(--wp--preset--color--gray-800);
 $colorHeadings: var(--wp--preset--color--primary);
 
 $btnBackground:  var(--wp--preset--color--accent);
-$btnBorder: 2px solid var(--wp--preset--color--accent);
+$btnBorder: 1px solid var(--wp--preset--color--accent);
 $btnText: #fff;
-$btnFont: var(--wp--preset--font-family--headings-sans);
-$btnFontWeight: 800;
+$btnFont: var(--wp--preset--font-family--headings);
+$btnFontWeight: 900;
 $btnFontSize: var(--font-size-button);
-$btnBorderHover: 2px solid var(--wp--preset--color--accent);
-$btnBackgroundHover: #fff;
-$btnBackgroundActive:  #fff;
-$btnTextHover:  var(--wp--preset--color--accent);
-$btnTextActive:  var(--wp--preset--color--accent);
+$btnBorderHover: 1px solid var(--wp--preset--color--accent-2);
+$btnBackgroundHover: var(--wp--preset--color--accent-2);
+$btnBackgroundActive:  var(--wp--preset--color--accent-2);
+$btnTextHover: #fff;
+$btnTextActive:  #fff;
 $btnBorderRadius: 0;
 
 $menuFontSize: var(--font-size-nav);
-$menuFontWeight: 500;
+$menuFontWeight: 600;
 
-$pageHeaderBackgroundColor: var(--wp--preset--color--primary);
+$pageHeaderBackgroundColor: var(--wp--preset--gradient--green-light-to-dark);
 $pageHeaderColor: var(--wp--preset--color--white);
 
 $btnAltBackground: var(--wp--preset--color--secondary);
@@ -100,4 +100,3 @@ $medium: var(--wp--preset--font-size--medium);
 $large: var(--wp--preset--font-size--large);
 $xlarge: var(--wp--preset--font-size--extra-large);
 $2xlarge: var(--wp--preset--font-size--gigantic);
-

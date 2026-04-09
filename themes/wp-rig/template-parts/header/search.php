@@ -6,9 +6,10 @@
  */
 
 namespace WP_Rig\WP_Rig;
+
 $label = '';
-if ( !empty($args) ) {
-	$label = isset($args['label']) ? $args['label'] : '';
+if ( ! empty( $args ) ) {
+	$label = isset( $args['label'] ) ? $args['label'] : '';
 }
 ?>
 

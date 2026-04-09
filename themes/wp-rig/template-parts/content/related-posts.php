@@ -1,7 +1,7 @@
 <?php
 
 $rel_posts = get_field( 'related_posts' );
-if ( !is_array( $rel_posts ) ) {
+if ( ! is_array( $rel_posts ) ) {
 	$rel_posts = array();
 }
 $count = count( $rel_posts );
@@ -25,13 +25,13 @@ $rel_posts        = array_merge( $rel_posts, wp_list_pluck( $additional_posts, '
 	<div class="ck-custom-archive__list alignwide ck-columns__wrap" style="--ck-column-gap-vert: var(--wp--preset--spacing--30); --ck-column-gap: var(--wp--preset--spacing--30);">
 <?php
 // only show 3 posts
-$n = 0;
+$n     = 0;
 $shown = 0;
 while ( $shown < 3 ) :
-	if ( !isset( $rel_posts[ $n ] ) ) {
+	if ( ! isset( $rel_posts[ $n ] ) ) {
 		break;
 	}
-	$post_id = $rel_posts[ $n ];
+	$post_id    = $rel_posts[ $n ];
 	$link_label = __( 'Read More', 'wp-rig' );
 	// if event make sure event date is in the future
 	if ( get_post_type( $post_id ) == 'carkeek_event' || get_post_type( $post_id ) == 'vol_event' ) {
@@ -40,7 +40,7 @@ while ( $shown < 3 ) :
 		$today      = date( 'Ymd' );
 		$link_label = __( 'Join Us', 'wp-rig' );
 		if ( $event_date < $today ) {
-			$n++;
+			++$n;
 			continue;
 		}
 	}
@@ -61,8 +61,8 @@ while ( $shown < 3 ) :
 			</a>
 		</div>
 	<?php
-	$n++;
-	$shown++;
+	++$n;
+	++$shown;
 endwhile;
 wp_reset_postdata();
 ?>

@@ -38,7 +38,7 @@
 	}
 
 	/** Show the asterisk on sub labels, hide the default
-	    unless .show-required is added to the field **/
+		unless .show-required is added to the field **/
 	& .gfield_contains_required {
 		& .gform-field-label--type-sub {
 			&::after {

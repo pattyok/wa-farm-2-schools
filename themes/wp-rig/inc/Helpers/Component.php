@@ -25,7 +25,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *
 	 * @return string Component slug.
 	 */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return 'helpers';
 	}
 
@@ -43,10 +43,10 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_action( 'ck_custom_archive_layout_modal_dialog__after_title', array( $this, 'custom_archive_layout_modal_dialog_after_title' ) );
 		add_action( 'ck_custom_archive_vol_event__meta_before_title', array( $this, 'custom_vol_event_archive_meta_before_title' ), 10, 2 );
 
-		add_filter ( 'carkeek_block_custom_post_layout_vol_event__query_args', array( $this, 'carkeek_block_event_archive_query' ), 10, 2 );
+		add_filter( 'carkeek_block_custom_post_layout_vol_event__query_args', array( $this, 'carkeek_block_event_archive_query' ), 10, 2 );
 
-		add_filter ( 'carkeek_events_location_display', array( $this, 'carkeek_events_block_location_display' ), 10, 2 );
-		add_filter ( 'carkeek_events_block_before_slots', array( $this, 'carkeek_events_block_before_slots' ), 10, 3 );
+		add_filter( 'carkeek_events_location_display', array( $this, 'carkeek_events_block_location_display' ), 10, 2 );
+		add_filter( 'carkeek_events_block_before_slots', array( $this, 'carkeek_events_block_before_slots' ), 10, 3 );
 	}
 
 
@@ -70,7 +70,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	public function my_theme_excerpt_length( $length ) {
 
 		return 55;
-
 	}
 
 
@@ -81,7 +80,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *               a callable or an array with key 'callable'. This approach is used to reserve the possibility of
 	 *               adding support for further arguments in the future.
 	 */
-	public function template_tags() : array {
+	public function template_tags(): array {
 		return array(
 			'get_social_links'        => array( $this, 'get_social_links' ),
 
@@ -274,7 +273,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 				return false;
 			}
 		}
-
 	}
 
 	/**
@@ -310,9 +308,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 */
 	public function sitefooter_add_custom_shortcode() {
 		add_shortcode( 'site_copy', array( $this, 'site_footer_do_custom_shortcode' ) );
-		add_shortcode( 'newsletter_shortform', array( $this, 'email_short_form_do_shortcode' ) );
-
-
 	}
 
 	/**
@@ -346,31 +341,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		return $html;
 	}
 
-	/**
-	 * Create a short version of the form that links to the full form
-	 * Can set style to footer or standard
-	 *
-	 * @param array $atts attributes to pass - style.
-	 */
-	public function email_short_form_do_shortcode( $atts ) {
-		$atts = shortcode_atts(
-			array(
-				'style' => 'standard',
-				'link'  => '',
-			),
-			$atts,
-			'newsletter_shortform'
-		);
-		$page = get_field( 'acf_email_signup_page', 'options' );
-		$link = $atts['link'] ? $atts['link'] : '';
-		$html = '<form class="email-form ' . $atts['style'] . '" action="' . $link . '">
-		<input type="email" name="em" placeholder="Email address" aria-label="Email Address" class="">
-		<button type="submit" aria-label="Submit">
-			<span class="label">Subscribe</span>
-		</button>
-	</form>';
-		return $html;
-	}
 
 
 	/** Make custom header breadcrumb
@@ -382,14 +352,16 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		if ( empty( $post_type ) ) {
 			$post_type = $post->post_type;
 		}
-		$landing_pages = get_field( 'acf_landing_page', 'options' ); //set this up as a repeater with post type and landing page.
-
-		$post_types    = wp_list_pluck( $landing_pages, 'landing_page', 'post_type' );
-		$parent        = 0; //default to no parent
-		$title_id = $post->ID;
-		$is_h1 = true;
+		$post_types = array();
+		if ( function_exists( 'get_field' ) ) {
+			$landing_pages = get_field( 'acf_landing_page', 'options' ); // set this up as a repeater with post type and landing page.
+			$post_types = wp_list_pluck( $landing_pages, 'landing_page', 'post_type' );
+		}
+		$parent     = 0; // default to no parent
+		$title_id   = $post->ID;
+		$is_h1      = true;
 		if ( isset( $post_types[ $post_type ] ) ) {
-			$parent = $post_types[ $post_type ];
+			$parent      = $post_types[ $post_type ];
 			$link_parent = true;
 		}
 
@@ -426,7 +398,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	}
 
 	/** Add Job Title to Modal Dialog Content */
-
 	public function custom_archive_layout_modal_dialog_after_title() {
 		$job_title = get_field( 'job_title' );
 		if ( ! empty( $job_title ) ) {
@@ -436,14 +407,14 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	}
 
 	/** Add Event Date before title for Volunteer Events */
-	public function custom_vol_event_archive_meta_before_title($meta_before, $data) {
-		$event_date = get_field( 'event_start_date_time' );
+	public function custom_vol_event_archive_meta_before_title( $meta_before, $data ) {
+		$event_date  = get_field( 'event_start_date_time' );
 		$meta_before = '';
 		if ( has_term( 'featured', 'skgt_event_category' ) ) {
 			$meta_before .= '<div class="ck-item-event-featured">Featured Volunteer Opportunity</div>';
 		}
 		if ( ! empty( $event_date ) ) {
-			//Format date Day, Month Date
+			// Format date Day, Month Date
 			$event_date = new \DateTime( $event_date );
 			if ( $event_date ) {
 				$meta_before .= '<div class="ck-item-event-date">' . esc_html( $event_date->format( 'l, M j' ) ) . '</div>';
@@ -454,31 +425,29 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 	/** Add Featured Event Text before event if in list view */
 	public function carkeek_events_block_before_slots( $content, $post_id, $data ) {
-		if ('list' === $data['postLayout'] ) {
+		if ( 'list' === $data['postLayout'] ) {
 			if ( has_term( 'featured', 'carkeek_event_category', $post_id ) ) {
 				$content = '<div class="ck-event-block-featured">Featured Event</div>';
-			} else if ( has_term( 'featured', 'skgt_event_category', $post_id ) ) {
+			} elseif ( has_term( 'featured', 'skgt_event_category', $post_id ) ) {
 				$content = '<div class="ck-event-block-featured">Featured Volunteer Opportunity</div>';
 			}
 		}
 		return $content;
-
-
 	}
 
 	/** Limit Event query to Events with and end date in the future */
 	public function carkeek_block_event_archive_query( $args, $data ) {
-		$args['meta_key'] = 'event_start_date_time';
+		$args['meta_key']   = 'event_start_date_time';
 		$args['meta_query'] = array(
 			'key'     => 'event_start_date_time',
-			'value'   => current_time('Y-m-d H:i:s'),
+			'value'   => current_time( 'Y-m-d H:i:s' ),
 			'compare' => '>=',
 			'type'    => 'DATETIME',
 		);
 		return $args;
 	}
 
-	//** Customize Location Display for Events Block - add class arrow-link if the html contains a link */
+	// ** Customize Location Display for Events Block - add class arrow-link if the html contains a link */
 	public function carkeek_events_block_location_display( $location_html, $post_id ) {
 		if ( strpos( $location_html, '<a ' ) !== false ) {
 			$location_html = str_replace( '<a ', '<a class="arrow-link" ', $location_html );
@@ -491,25 +460,36 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		$post_type_object = get_post_type_object( 'carkeek_event' );
 		if ( $post_type_object ) {
 			$post_type_object->template = array(
-				array( 'carkeek-blocks/featured-image', array("align"=>"right") ),
-				array( 'core/group' , array(
-					'layout' => array('type' => 'constrained'),
-				), array(
-					array( 'carkeek-events/event-details' ),
-					array( 'core/buttons', array(), array(
-						array( 'core/button', array(
-							'backgroundColor' => 'accent',
-						) ),
-					) ),
-					array( 'core/paragraph', array(
-						'placeholder' => 'Add event description here...',
-					) ),
-				) )
+				array( 'carkeek-blocks/featured-image', array( 'align' => 'right' ) ),
+				array(
+					'core/group',
+					array(
+						'layout' => array( 'type' => 'constrained' ),
+					),
+					array(
+						array( 'carkeek-events/event-details' ),
+						array(
+							'core/buttons',
+							array(),
+							array(
+								array(
+									'core/button',
+									array(
+										'backgroundColor' => 'accent',
+									),
+								),
+							),
+						),
+						array(
+							'core/paragraph',
+							array(
+								'placeholder' => 'Add event description here...',
+							),
+						),
+					),
+				),
 
 			);
 		}
 	}
-
-
 }
-

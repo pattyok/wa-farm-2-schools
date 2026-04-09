@@ -77,7 +77,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_action( 'wp_head', array( $this, 'action_preload_styles' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'action_add_editor_styles' ), 50 );
 		add_action( 'after_setup_theme', array( $this, 'action_add_block_styles' ) );
-		//This is necessary to load fa to the site editor. THough Im not sure if its workking.
+		// This is necessary to load fa to the site editor. THough Im not sure if its workking.
 		add_action( 'enqueue_block_editor_content_assets', array( $this, 'action_add_block_scripts' ), 50 );
 
 		add_filter( 'wp_resource_hints', array( $this, 'filter_resource_hints' ), 10, 2 );
@@ -118,7 +118,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		// Enqueue Typekit fonts if using.
 		$fontawesome_kit_url = $this->get_fontawesome_fonts_url();
 		if ( ! empty( $fontawesome_kit_url ) ) {
-			//dequeue um fontawesome
+			// dequeue um fontawesome
 			wp_dequeue_style( 'um_fontawesome-css' );
 			wp_enqueue_script( 'wp-rig-fa', $fontawesome_kit_url, array(), null, array( 'in_footer' => true ) ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		}
@@ -132,7 +132,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		foreach ( $css_files as $handle => $data ) {
 			$version = wp_rig()->get_asset_version( $css_dir . $data['file'] );
 			$asset   = $css_uri . wp_rig()->get_asset_path( $data['file'] );
-			$deps	= array();
+			$deps    = array();
 			/*
 			* Enqueue global stylesheets immediately and register the other ones for later use
 			* (unless preloading stylesheets is disabled, in which case stylesheets should be immediately
@@ -218,10 +218,10 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		}
 	}
 	// /**
-	//  * Enqueues WordPress theme styles for the editor.
-	//  */
+	// * Enqueues WordPress theme styles for the editor.
+	// */
 	// public function action_add_block_scripts() {
-	// 	// Enqueue Fontawesome kit if using.
+	// Enqueue Fontawesome kit if using.
 
 
 	// }
@@ -385,9 +385,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			return $this->google_fonts;
 		}
 
-		$google_fonts = array(
-
-		);
+		$google_fonts = array();
 
 		/**
 		 * Filters default Google Fonts.
@@ -444,7 +442,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @return string Adobe Typekit URL, or empty string if no typekit should be used.
 	 */
 	protected function get_typekit_fonts_url(): string {
-		return 'https://use.typekit.net/esy5bdb.css';
+		return '';
 	}
 
 	/**

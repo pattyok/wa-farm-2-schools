@@ -88,24 +88,18 @@ if ( is_404() ) {
 		?>
 	</header><!-- .page-header -->
 	<?php
-}  elseif ( is_page() || is_singular() ) {
+} elseif ( is_page() || is_singular() ) {
 	$hide_title = filter_var( get_post_meta( $post->ID, '_carkeekblocks_title_hidden', true ), FILTER_VALIDATE_BOOLEAN );
 	$hide_image = filter_var( get_post_meta( $post->ID, '_carkeekblocks_featuredimage_hidden', true ), FILTER_VALIDATE_BOOLEAN );
-	$iframe     = get_field( 'blog_video_link' );
-	$has_video  = false;
 
 	$header_class   = '';
 	$header_content = '';
 	$header_style   = '';
-	if ('post' === get_post_type() || 'acf_take_action' === get_post_type() ) {
+	if ( 'post' === get_post_type() || 'acf_take_action' === get_post_type() ) {
 		$hide_title = true;
 	}
 
-	if ( ! empty( $iframe ) ) {
-		$has_video     = true;
-		$hide_title    = true;
-		$header_class .= 'has-post-video has-post-thumbnail';
-	} elseif ( true !== $hide_image && ( has_post_thumbnail() ) ) {
+	if ( true !== $hide_image && ( has_post_thumbnail() ) ) {
 		$header_class .= 'has-post-thumbnail';
 		$show_image    = true;
 	} else {
@@ -116,39 +110,7 @@ if ( is_404() ) {
 		?>
 	<header class="page-header <?php echo esc_attr( $header_class ); ?>" <?php echo esc_attr( $header_style ); ?>>
 		<?php
-		if ( true == $has_video ) { // phpcs:ignore
-			// Use preg_match to find iframe src.
-			preg_match( '/src="(.+?)"/', $iframe, $matches );
-			$src = $matches[1];
-
-			$parsed   = wp_parse_url( $src );
-			$paths    = explode( '/', $parsed['path'] );
-			$video_id = end( $paths );
-
-			if ( strpos( $parsed['host'], 'vimeo' ) !== false ) {
-				$iframe = '<lite-vimeo videoid="' . $video_id . '"></lite-vimeo>';
-			} elseif ( strpos( $parsed['host'], 'youtube' ) !== false ) {
-				$iframe = '<lite-youtube videoid="' . $video_id . '"></lite-youtube>';
-			}
-
-
-			// Add extra parameters to src and replcae HTML.
-			// rel = 0 makes it so related videos come from same source.
-			$params = array(
-				'rel' => 0,
-			);
-
-			$new_src = add_query_arg( $params, $src );
-			$iframe  = str_replace( $src, $new_src, $iframe );
-
-			// Add extra attributes to iframe HTML.
-			$attributes = 'frameborder="0"';
-			$iframe     = str_replace( '></iframe>', ' ' . $attributes . '></iframe>', $iframe );
-
-			// Display customized HTML.
-			echo $iframe; /** phpcs:ignore */
-
-		} elseif ( true !== $hide_image ) {
+		if ( true !== $hide_image ) {
 			get_template_part( 'template-parts/content/entry-thumbnail', get_post_type(), array( 'is_header' => true ) );
 		}
 		if ( true !== $hide_title ) {

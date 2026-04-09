@@ -13,7 +13,7 @@ themes/*/bower_components/
 
 
 !themes/wp-rig
-!themes/skagit-land-trust
+!themes/wa-farm-2-schools
 
 !plugins/.gitignore
 !mu-plugins/crk-functionality-plugin.php

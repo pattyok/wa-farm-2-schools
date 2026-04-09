@@ -25,8 +25,8 @@ if ( isset( $args ) && isset( $args['post_id'] ) ) {
 if ( ! has_post_thumbnail( $postid ) || post_password_required() || ! post_type_supports( $support_slug, 'thumbnail' ) ) {
 	return;
 }
-$thumb_class = '';
-$thumb_style = '';
+$thumb_class  = '';
+$thumb_style  = '';
 $photo_credit = '';
 
 $is_header   = isset( $args ) && isset( $args['is_header'] ) && true == $args['is_header'];
@@ -40,7 +40,7 @@ if ( ! empty( $focal_point ) ) {
 }
 if ( $is_header ) {
 	$photo_credit = get_field( 'photo_credit', get_post_thumbnail_id() );
-	$use_opacity = get_option( '_carkeekblocks_featuredimage_use_opacity', false );
+	$use_opacity  = get_option( '_carkeekblocks_featuredimage_use_opacity', false );
 	if ( true == $use_opacity ) {
 		$image_opacity = get_post_meta( $postid, '_carkeekblocks_featured_image_opacity', true );
 		// if 101 that is default, so set to 0.

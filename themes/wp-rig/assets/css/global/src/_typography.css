@@ -22,68 +22,59 @@
 h1,
 .h1 {
 	font-family: $fontFamilyHeadings;
-	line-height: 1.15;
 	font-size: var(--font-size-h1);
-	font-weight: var(--font-weight--bold);
+	font-weight: 800;
 	color: var(--wp--preset--color--primary);
 }
 
 .has-h-2-font-size,
 h2,
 .h2 {
-	line-height: 1.25;
 	font-family: $fontFamilyHeadings;
 	color: var(--wp--preset--color--primary);
 	font-size: var(--font-size-h2);
-	font-weight: var(--font-weight--bold);
+	font-weight: 800;
 }
 
 .has-h-3-font-size,
 h3,
 .h3 {
-	line-height: 1.25;
 	font-family: $fontFamilyHeadingsSans;
 	color: var(--wp--preset--color--primary);
 	font-size: var(--font-size-h3);
-	font-weight: var(--font-weight--bold);
+	font-weight: 800;
 }
 
 .has-h-4-font-size,
 h4,
 .h4 {
-	line-height: 1.15;
 	font-family: $fontFamilyHeadingsSans;
 	color: var(--wp--preset--color--global);
 	font-size: var(--font-size-h4);
-	font-weight: var(--font-weight--medium);
+	font-weight: 700;
 }
 
 
 .has-h-5-font-size,
 h5,
 .h5 {
-	line-height: 1.15;
 	color: var(--wp--preset--color--global);
 	font-family: $fontFamilyHeadingsSans;
 	font-size: var(--font-size-h5);
-	font-weight: var(--font-weight--demi-bold);
+	font-weight: 600;
+	letter-spacing: 0.9px;
+	text-transform: uppercase;
 }
 
 .has-h-6-font-size,
 h6,
 .h6 {
-	line-height: 1.15;
 	color: var(--wp--preset--color--global);
 	font-family: $fontFamilyHeadingsSans;
 	font-size: var(--font-size-h6);
-	font-weight: var(--font-weight--medium);
+	font-weight: 600;
 }
 
-.all-caps {
-	text-transform: uppercase;
-	font-family: $fontFamilyHeadingsSans;
-	font-weight: 800;
-}
 
 .entry-header h1.entry-title,
 .page-header .page-title {

@@ -23,7 +23,7 @@ class Component implements Component_Interface {
 	 *
 	 * @return string Component slug.
 	 */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return 'editor';
 	}
 
@@ -62,8 +62,5 @@ class Component implements Component_Interface {
 		// From Carkeek Blocks.
 		update_option( '_carkeekblocks_featuredimage_use_opacity', true );
 		update_option( '_carkeekblocks_featuredimage_opacity_default', 50 );
-
 	}
-
-
 }

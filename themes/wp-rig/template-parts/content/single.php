@@ -32,7 +32,7 @@ namespace WP_Rig\WP_Rig;
 			$block_content = '<!-- wp:carkeek-blocks/featured-image {"align":"right"} /-->
 			<!-- wp:volunteer-event-management/event-shifts /-->';
 			echo do_blocks( $block_content );
-			?>
+		?>
 	<?php endif; ?>
 
 	<?php
@@ -41,11 +41,12 @@ namespace WP_Rig\WP_Rig;
 	<?php if ( is_singular( 'skgt_location' ) ) : ?>
 		<?php get_template_part( 'template-parts/content/related-posts' ); ?>
 	<?php endif; ?>
-	<?php if ( !empty(block_template_part( get_post_type() . '-footer' ) ) ) : ?>
+	<?php if ( ! empty( block_template_part( get_post_type() . '-footer' ) ) ) : ?>
 		<div class="single-footer page-content">
 		<?php
 		block_template_part( get_post_type() . '-footer' );
-		?></div>
+		?>
+		</div>
 	<?php endif; ?>
 	</div>
 

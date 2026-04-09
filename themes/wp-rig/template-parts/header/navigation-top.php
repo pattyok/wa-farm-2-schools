@@ -10,5 +10,5 @@ namespace WP_Rig\WP_Rig;
 ?>
 
 
-<?php block_template_part( 'site-header-top' ); ?>
-
+<?php
+block_template_part( 'site-header-top' );

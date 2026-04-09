@@ -5,85 +5,116 @@
 /* stylelint-disable */
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/truenorg-webfont.woff2') format('woff2'),
-         url('../../fonts/trueno/truenorg-webfont.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
+	font-family: "Lato";
+	src: url("../../fonts/lato/lato-regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/truenorgit-webfont.woff2') format('woff2'),
-         url('../../fonts/trueno/truenorgit-webfont.woff') format('woff');
-    font-weight: 500;
-    font-style: italic;
+	font-family: "Lato";
+	src: url("../../fonts/lato/lato-italic.ttf") format("truetype");
+	font-weight: 400;
+	font-style: italic;
 }
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/truenolt-webfont.woff2') format('woff2'),
-         url('../../fonts/trueno/truenolt-webfont.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+	font-family: "Lato";
+	src: url("../../fonts/lato/lato-bold.ttf") format("truetype");
+	font-weight: 600;
+	font-style: normal;
 }
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/truenoltit-webfont.woff2') format('woff2'),
-         url('../../fonts/trueno/truenoltit-webfont.woff') format('woff');
-    font-weight: 400;
-    font-style: italic;
+	font-family: "Lato";
+	src: url("../../fonts/lato/lato-bolditalic.ttf") format("truetype");
+	font-weight: 600;
+	font-style: italic;
 }
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/truenoultlt-webfont.woff2') format('woff2'),
-         url('../../fonts/trueno/truenoultlt-webfont.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
+	font-family: "Lato";
+	src: url("../../fonts/lato/lato-black.ttf") format("truetype");
+	font-weight: 900;
+	font-style: normal;
 }
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/truenoultltit-webfont.woff2') format('woff2'),
-         url('../../fonts/trueno/truenoultltit-webfont.woff') format('woff');
-    font-weight: 300;
-    font-style: italic;
+	font-family: "Lato";
+	src: url("../../fonts/lato/lato-blackitalic.ttf") format("truetype");
+	font-weight: 900;
+	font-style: italic;
 }
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/TruenoSemibold.woff') format('woff');
-    font-weight: 600;
-    font-style: normal;
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/TruenoSemiboldItalic.woff') format('woff');
-    font-weight: 600;
-    font-style: italic;
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-italic.ttf") format("truetype");
+	font-weight: 400;
+	font-style: italic;
 }
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/truenobd-webfont.woff2') format('woff2'),
-         url('../../fonts/trueno/truenobd-webfont.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-semibold.ttf") format("truetype");
+	font-weight: 600;
+	font-style: normal;
 }
-
-
 
 @font-face {
-	font-family: "Trueno";
-    src: url('../../fonts/trueno/truenobdit-webfont.woff2') format('woff2'),
-         url('../../fonts/trueno/truenobdit-webfont.woff') format('woff');
-    font-weight: 700;
-    font-style: italic;
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-semibolditalic.ttf") format("truetype");
+	font-weight: 600;
+	font-style: italic;
 }
 
+@font-face {
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-bold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-bolditalic.ttf") format("truetype");
+	font-weight: 700;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-extrabold.ttf") format("truetype");
+	font-weight: 800;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-extrabolditalic.ttf") format("truetype");
+	font-weight: 800;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-black.ttf") format("truetype");
+	font-weight: 900;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Poppins";
+	src: url("../../fonts/poppins/poppins-blackitalic.ttf") format("truetype");
+	font-weight: 900;
+	font-style: italic;
+}
 
 
 /* stylelint-enable */

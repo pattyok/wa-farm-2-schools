@@ -13,14 +13,14 @@
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-  @font-face {
-    font-family: 'carkeek-blocks';
-    src: url('../../fonts/carkeek-blocks.svg?8214548#carkeek-blocks') format('svg');
-  }
+	@font-face {
+	font-family: 'carkeek-blocks';
+	src: url('../../fonts/carkeek-blocks.svg?8214548#carkeek-blocks') format('svg');
+	}
 }
 */
 [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "carkeek-blocks";
+	font-family: "carkeek-blocks";
 	font-style: normal;
 	font-weight: 400;
 	speak: never;

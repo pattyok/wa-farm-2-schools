@@ -9,7 +9,7 @@ namespace WP_Rig\WP_Rig;
 
 use WP_Rig\WP_Rig\Helpers;
 
-$post_id       = get_the_ID();
+$post_id        = get_the_ID();
 $date_range     = \CarkeekEvents_Display::get_date_range_html( $post_id, '<br/>' );
 $location_html  = \CarkeekEvents_Display::get_event_location_html( $post_id );
 $organizer_html = \CarkeekEvents_Display::get_event_organizer_html( $post_id );
