@@ -41,8 +41,8 @@
 	--color-quote-border: #000;
 	--color-quote-citation: #6c7781;
 	--color-caption: #6c7781;
-	--color-border: #61698b;
-	--color-border-dark: #979797;
+	--color-border: #C3C3C3;
+	--color-border-dark: #3b3b3b;
 	--dashed-border: 2px  dashed  var(--color-border);
 	--solid-border: 2px  solid  var(--color-border);
 
@@ -66,7 +66,7 @@
 	--element-bold: var(--font-weight--bold);
 
 	/* Heading font sizes */
-	--font-size-h1: calc(72 / var(--global-font-size) * 1rem);
+	--font-size-h1: calc(60 / var(--global-font-size) * 1rem);
 	--font-size-h2: calc(40 / var(--global-font-size) * 1rem);
 	--font-size-h3: calc(25 / var(--global-font-size) * 1rem);
 	--font-size-h4: calc(24 / var(--global-font-size) * 1rem);
@@ -75,7 +75,7 @@
 	--heading-spacing: 0.5em;
 
 	--header-height: 100px;
-	--header-image-width: 200px;
+	--header-image-width: 125px;
 	--ck-fixed-image-ratio: 66%;
 	--ck-archive-image-ratio: 72%;
 	--ck-column-gap-vert: 35px;
@@ -90,6 +90,7 @@
 @media (--tablet-up) {
 	:root {
 		--global-font-line-height: 1.44;
+		--header-image-width: 150px;
 	}
 }
 
@@ -97,6 +98,7 @@
 
 	:root {
 		--content-width: 74vw;
+		--font-size-h1: calc(72 / var(--global-font-size) * 1rem);
 		--font-size-h2: calc(48 / var(--global-font-size) * 1rem);
 		--font-size-h3: calc(40 / var(--global-font-size) * 1rem);
 

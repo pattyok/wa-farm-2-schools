@@ -169,41 +169,17 @@ a.wp-block-button__link:hover {
 button.facetwp-load-more,
 .arrow-link > a,
 a.arrow-link {
-	font-family: var(--wp--preset--font-family--headings-sans);
+	font-family: var(--wp--preset--font-family--headings);
+	color: var(--wp--preset--color--accent);
 	border: none;
 	padding: 0;
 	text-align: left;
 	font-size: var(--font-size-cta);
-	text-transform: uppercase;
-	font-weight: 800;
+	text-transform: none;
+	font-weight: 700;
 	text-decoration: none;
 	display: flex !important;
 	align-items: center;
-
-	&::after {
-		background-color: currentcolor;
-		content: "";
-		display: inline-block;
-		height: 23px;
-		width: 21px;
-		margin-left: 6px;
-
-		mask-image: url(../../images/cta_arrow.svg);
-		mask-size: 23px auto;
-		mask-repeat: no-repeat;
-		mask-position: center right;
-		transform-origin: left;
-		will-change: transform;
-		transition: all 0.2s ease-in-out;
-	}
-
-	&:hover {
-
-
-		&::after {
-			transform: translateX(5px);
-		}
-	}
 
 }
 
@@ -211,19 +187,18 @@ a.arrow-link {
 button.facetwp-load-more,
 .arrow-link > a,
 a.arrow-link {
-	line-height: 2;
 	display: inline-flex;
 	align-items: center;
 	&::after {
 		background-color: currentcolor;
 		content: "";
 		display: inline-block;
-		height: 22px;
-		width: 21px;
+		height: 16px;
+		width: 13px;
 		margin-left: 6px;
 
 		mask-image: url(../../images/cta_arrow.svg);
-		mask-size: 22px auto;
+		mask-size: auto 16px;
 		mask-repeat: no-repeat;
 		mask-position: center right;
 		transform-origin: left;
@@ -237,6 +212,33 @@ a.arrow-link {
 		}
 	}
 
+}
+.arrow-link--prev > a {
+	&::after {
+		display: none;
+	}
+	&::before {
+		background-color: currentcolor;
+		content: "";
+		display: inline-block;
+		height: 16px;
+		width: 13px;
+		margin-left: 6px;
+
+		mask-image: url(../../images/cta_arrow.svg);
+		transform: rotate(180deg);
+		mask-size: auto 16px;
+		mask-repeat: no-repeat;
+		mask-position: center left;
+		transform-origin: left;
+		will-change: transform;
+		transition: all 0.2s ease-in-out;
+	}
+	&:hover {
+		&::before {
+			transform: rotate(180deg) translateX(5px);
+		}
+	}
 }
 
 

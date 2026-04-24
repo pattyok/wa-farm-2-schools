@@ -76,17 +76,17 @@ if ( is_404() ) {
 	<header class="page-header archive-header">
 		<div class="entry-title">
 		<?php
-		$page_for_posts = get_option( 'page_for_posts' );
+			wa_farm_2_schools()->make_breadcrumbs( $args['post_type'], false );
 		?>
-		<span><a href="<?php the_permalink( $page_for_posts ); ?>" ><?php echo get_the_title( $page_for_posts ); // phpcs:ignore?></a></span>
-		<?php
-		the_archive_title( '<h1 class="page-title">', '</h1>' );
-		?>
+			<?php
+			the_archive_title( '<h1 class="page-title">', '</h1>' );
+			?>
 		</div>
-		<?php
-		the_archive_description( '<div class="archive-description">', '</div>' );
-		?>
+
 	</header><!-- .page-header -->
+	<?php
+		the_archive_description( '<div class="archive-description">', '</div>' );
+	?>
 	<?php
 } elseif ( is_page() || is_singular() ) {
 	$hide_title = filter_var( get_post_meta( $post->ID, '_carkeekblocks_title_hidden', true ), FILTER_VALIDATE_BOOLEAN );
@@ -95,9 +95,7 @@ if ( is_404() ) {
 	$header_class   = '';
 	$header_content = '';
 	$header_style   = '';
-	if ( 'post' === get_post_type() || 'acf_take_action' === get_post_type() ) {
-		$hide_title = true;
-	}
+
 
 	if ( true !== $hide_image && ( has_post_thumbnail() ) ) {
 		$header_class .= 'has-post-thumbnail';

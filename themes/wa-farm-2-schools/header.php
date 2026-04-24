@@ -33,13 +33,11 @@ namespace WP_Rig\WP_Rig;
 		<div class="site-header--inner">
 
 			<?php get_template_part( 'template-parts/header/branding' ); ?>
-			<div class="header-top hide-mobile-menu">
-				<?php get_template_part( 'template-parts/header/navigation-top' ); ?>
-			</div>
 			<div class="header-nav-wrapper">
 				<?php get_template_part( 'template-parts/header/before-navigation' ); ?>
 				<?php get_template_part( 'template-parts/header/navigation' ); ?>
 				<?php get_template_part( 'template-parts/header/search' ); ?>
+				<?php get_template_part( 'template-parts/header/after-navigation' ); ?>
 
 			</div>
 		</div>

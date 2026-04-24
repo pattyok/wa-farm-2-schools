@@ -5,6 +5,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	wp.blocks.unregisterBlockType( 'core/gallery' );
 	wp.blocks.unregisterBlockType( 'core/quote' );
 	wp.blocks.unregisterBlockType( 'core/details' );
+	wp.blocks.unregisterBlockType( 'core/accordion' );
 	wp.blocks.unregisterBlockType( 'core/post-featured-image' );
 	wp.blocks.unregisterBlockType( 'carkeek-blocks/button-expand-collapse' );
 	wp.blocks.registerBlockStyle( 'core/video', {
@@ -37,6 +38,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		label: 'Borders',
 	} );
 
+	wp.blocks.registerBlockStyle( 'carkeek-blocks/custom-archive', {
+		name: 'table',
+		label: 'Table',
+	} );
+
 
 
 	// Remove Core Image Style.
@@ -62,12 +68,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		},
 	] );
 
-	wp.blocks.registerBlockStyle( 'core/button', [
-		{
-			name: 'down-arrow',
-			label: 'Down Arrow'
-		},
-	] );
 
 	wp.blocks.registerBlockStyle( 'core/cover', [
 		{
@@ -84,19 +84,20 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	] );
 
 
-	wp.blocks.registerBlockStyle( 'core/group', [
+	wp.blocks.registerBlockStyle( 'core/list', [
 		{
-			name: 'half-tone',
-			label: 'Half Tone Background',
+			name: 'footnotes',
+			label: 'Footnotes',
 		},
 	] );
 
-	wp.blocks.registerBlockStyle( 'core/group', [
+	wp.blocks.registerBlockStyle( 'core/paragraph', [
 		{
-			name: 'equal-height',
-			label: 'Circle',
+			name: 'footnotes',
+			label: 'Footnotes',
 		},
 	] );
+
 
 
 	wp.blocks.registerBlockStyle( 'core/columns', [
@@ -134,30 +135,16 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		},
 	] );
 
-	wp.blocks.registerBlockStyle( 'core/orange-button', [
-		{
-			name: 'orange-button',
-			label: 'Orange Button',
-		},
-	] );
-
 	wp.blocks.registerBlockVariation( 'core/buttons', {
-		name: 'buttons-orange',
-		title: 'Event Buttons',
-		icon: 'button',
-		innerBlocks: [ [ 'core/button', { backgroundColor: 'accent' } ] ],
+		name: 'buttons-cta',
+		title: 'Call to Action',
+		icon: 'arrow-right-alt2',
+		attributes: { layout: { type: 'flex', justifyContent: 'center' } },
+		innerBlocks: [
+			[ 'core/button', { className: 'is-style-arrow-link' } ],
+		],
 		scope: [ 'inserter' ],
-		keywords: [ 'button', 'register', 'event', 'cta' ],
-	} );
-
-	wp.blocks.registerBlockVariation( 'core/buttons', {
-		name: 'buttons-standard',
-		title: 'Buttons',
-		icon: 'button',
-		isDefault: true,
-		innerBlocks: [ [ 'core/button', { className: 'is-style-arrow-link' } ] ],
-		scope: [ 'inserter' ],
-		keywords: [ 'button', 'buttons', 'call to action', 'cta' ],
+		keywords: [ 'button', 'call', 'cta', 'action' ],
 	} );
 
 	wp.blocks.registerBlockVariation( 'core/media-text', {
@@ -193,10 +180,70 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	} );
 
 	wp.blocks.registerBlockVariation( 'core/group', {
+		name: 'section',
+		title: 'Section',
+		isDefault: true,
+		attributes: { layout: { inherit: true }, align: 'full', className: 'section' },
+		innerBlocks: [
+			[ 'core/heading', { textAlign: 'center' } ],
+			[ 'core/paragraph', { fontSize: 'default', align: 'center'} ],
+			[
+				'core/buttons',
+				{ layout: { type: 'flex', justifyContent: 'center' } },
+				[ [ 'core/button', { className: 'is-style-arrow-link' } ] ],
+			],
+		],
+		scope: [ 'inserter' ],
+		keywords: [ 'section', 'group', 'columns'  ],
+	} );
+
+	wp.blocks.registerBlockVariation( 'core/group', {
+		name: 'section-light',
+		title: 'Section - Light Background',
+		isDefault: true,
+		attributes: { layout: { inherit: true }, align: 'full', backgroundColor: 'tint-lt', className: 'section' },
+		innerBlocks: [
+			[ 'core/heading', { textAlign: 'center' } ],
+			[ 'core/paragraph', { fontSize: 'default', align: 'center'} ],
+			[
+				'core/buttons',
+				{ layout: { type: 'flex', justifyContent: 'center' } },
+				[ [ 'core/button', { className: 'is-style-arrow-link' } ] ],
+			],
+		],
+		scope: [ 'inserter' ],
+		keywords: [ 'section', 'group', 'light', 'columns' ],
+	} );
+
+	wp.blocks.registerBlockVariation( 'core/cover', {
+		name: 'section-image',
+		title: 'Section - Image Background',
+		isDefault: true,
+		attributes: { layout: { inherit: true }, align: 'full', className: 'section', dimRatio: 20, overlayColor: 'contrast', isUserOverlayColor: true},
+		innerBlocks: [
+			[ 'core/heading', { textAlign: 'center' } ],
+			[ 'core/paragraph', { fontSize: 'default', align: 'center'} ],
+			[
+				'core/buttons',
+				{ layout: { type: 'flex', justifyContent: 'center' } },
+				[ [ 'core/button', { } ] ],
+			],
+		],
+		scope: [ 'inserter' ],
+		keywords: [ 'section', 'group', 'columns'  ],
+	} );
+
+
+	wp.blocks.registerBlockVariation( 'core/group', {
 		name: 'page-intro',
 		title: 'Page Intro',
 		isDefault: true,
-		attributes: { layout: { inherit: true }, className: 'page-intro' },
+		attributes: {
+			layout: { inherit: true },
+			align: 'full',
+			style: { spacing: { padding: {top: 'var:preset|spacing|60', bottom: 'var:preset|spacing|60'} } },
+			backgroundColor: 'tint-lt',
+			className: 'page-intro' },
 		innerBlocks: [ [ 'core/paragraph', { fontSize: 'large', align: "center" } ] ],
 		scope: [ 'inserter' ],
 		keywords: [ 'intro', 'page-intro' ],
@@ -211,7 +258,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	} );
 } );
 
-//Set the default dimratio on the cover block to 0.
+//Set the defaults on core blocks that we want to modify.
 function setBlockDefaults( settings, name ) {
 	if ( name === 'core/separator' ) {
 		if ( settings.supports ) {

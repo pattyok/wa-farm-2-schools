@@ -7,6 +7,7 @@
 		"color": {
 			"defaultDuotone": false,
 			"defaultGradients": false,
+			"customGradients": false,
 			"defaultPalette": false,
 			"palette": [
 
@@ -177,6 +178,15 @@
 					"name": "Extra Large",
 					"size": "1.375rem",
 					"slug": "x-large"
+				},
+				{
+					"fluid": {
+						"max": "3.75rem",
+						"min": "3.1875rem"
+					},
+					"name": "Extra Extra Large",
+					"size": "3.75rem",
+					"slug": "xx-large"
 				}
 			],
 			"fontFamilies": [
@@ -237,7 +247,7 @@
 			"text": "var:preset|color|contrast"
 		},
 		"spacing": {
-			"blockGap": "var:preset|spacing|40"
+			"blockGap": "var:preset|spacing|30"
 		},
 		"typography": {
 			"fontFamily": "var:preset|font-family|global",
@@ -267,6 +277,14 @@
 					"blockGap": "16px"
 				}
 			},
+			"core/social-links": {
+				"openInNewTab": true,
+				"spacing": {
+					"blockGap": {
+						"left": "var:preset|spacing|20"
+					}
+				}
+			},
 			"core/post-date": {
 				"color":{
 					"text": "var:preset|color|accent-4"
@@ -274,11 +292,14 @@
 				"elements": {
 					"link": {
 						"color" : {
-							"text": "var:preset|color|accent-4"
+							"text": "var:preset|color|secondary"
 						},
 						":hover": {
 							"typography": {
 								"textDecoration": "underline"
+							},
+							"color" : {
+								"text": "var:preset|color|secondary-dark"
 							}
 						},
 						"typography": {
@@ -424,10 +445,10 @@
 
 				"spacing": {
 					"padding": {
-						"bottom": "1.25rem",
+						"bottom": "1.0625rem",
 						"left": "1.875rem",
 						"right": "1.875rem",
-						"top": "1.25rem"
+						"top": "1.0625rem"
 					}
 				},
 				"typography": {
@@ -458,15 +479,18 @@
 
 			"link": {
 				"color": {
-					"text": "var:preset|color|accent"
+					"text": "var:preset|color|secondary"
 				},
 				"typography": {
 					"textDecoration": "none",
-					"fontWeight": "700"
+					"fontWeight": "800"
 				},
 				":hover": {
 					"typography": {
 						"textDecoration": "underline"
+					},
+					"color": {
+						"text": "var:preset|color|secondary-dark"
 					}
 				}
 			}

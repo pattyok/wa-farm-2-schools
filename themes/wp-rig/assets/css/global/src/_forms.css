@@ -51,7 +51,7 @@ a.button,
 	&:hover,
 	&:active {
 		background-color: $btnBackgroundHover;
-
+		border-color: $btnBorderHover;
 		color: $btnTextHover;
 		text-decoration: none;
 

@@ -7,7 +7,6 @@
 
 namespace WP_Rig\WP_Rig;
 
-$post_categories = wp_get_post_categories( $post->ID, array( 'fields' => 'names' ) );
 ?>
 
 	<div class="postmeta">

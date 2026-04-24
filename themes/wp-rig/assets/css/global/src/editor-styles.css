@@ -16,7 +16,9 @@
 @import "../../blocks/src/media-text.css";
 
 
-
+.edit-link.hide-frontend {
+	display: block;
+}
 
 .block-editor-block-list__layout.is-root-container > [class*="wp-block"] {
 	padding-left: 24px;

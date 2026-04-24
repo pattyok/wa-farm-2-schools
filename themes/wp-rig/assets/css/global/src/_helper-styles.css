@@ -24,3 +24,27 @@
 		float: right;
 	}
 }
+
+.is-style-footnotes {
+	font-size: var(--wp--preset--font-size--small);
+	font-style: italic;
+	text-align: center;
+}
+ol.is-style-footnotes,
+ul.is-style-footnotes {
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	list-style-position: inside;
+
+}
+
+.edit-link {
+	font-size: 12px;
+	font-weight: 400;
+	&.hide-frontend {
+		display: none;
+	}
+}

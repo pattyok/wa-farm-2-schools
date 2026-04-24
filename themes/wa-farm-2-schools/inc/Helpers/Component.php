@@ -41,15 +41,91 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 		add_filter( 'term_link', array( $this, 'update_term_link' ), 10, 3 );
 		add_action( 'ck_custom_archive_layout_modal_dialog__after_title', array( $this, 'custom_archive_layout_modal_dialog_after_title' ) );
-		add_action( 'ck_custom_archive_vol_event__meta_before_title', array( $this, 'custom_vol_event_archive_meta_before_title' ), 10, 2 );
-
-		add_filter( 'carkeek_block_custom_post_layout_vol_event__query_args', array( $this, 'carkeek_block_event_archive_query' ), 10, 2 );
+		add_filter( 'get_the_archive_title', array( $this, 'custom_archive_title' ) );
 
 		add_filter( 'carkeek_events_location_display', array( $this, 'carkeek_events_block_location_display' ), 10, 2 );
 		add_filter( 'carkeek_events_block_before_slots', array( $this, 'carkeek_events_block_before_slots' ), 10, 3 );
+
+		add_filter( 'ck_custom_archive_resource_link__link', array( $this, 'custom_archive_link' ), 10, 3 );
+		add_action( 'ck_custom_archive_layout__after_excerpt', array( $this, 'custom_archive_after_excerpt_resource_link' ) );
 	}
 
+	/** Custom Archive Title
+	 * Remove the default archive title prefix for categories and tags
+	 *
+	 * @param string $title the default title.
+	 * @return string the modified title.
+	 */
+	public function custom_archive_title( $title ) {
+		$title = single_term_title( '', false );
 
+		if ( is_tax( 'region' ) ) {
+			$title = $title . ' Region';
+		}
+
+		return $title;
+	}
+
+	/** Custom Archive Link
+	 * Modify the link for custom archive resources
+	 *
+	 * @param string $link the original link.
+	 * @param object $post the post object.
+	 * @param array  $attributes the block attributes.
+	 * @return string the modified link.
+	 */
+	public function custom_archive_link( $link, $post_id, $attributes ) {
+		// Custom logic for modifying the link.
+		if ( ! function_exists( 'get_field' ) ) {
+			return $link;
+		}
+		$custom_link = get_field( 'resource_link', $post_id );
+
+		$link = '';
+		if ( isset( $custom_link['pdf'] ) && ! empty( $custom_link['pdf'] ) ) {
+			$link = $custom_link['pdf'];
+		} elseif ( isset( $custom_link['url'] ) && ! empty( $custom_link['url'] ) ) {
+			$link = $custom_link['url'];
+		}
+		return $link;
+	}
+
+	/** Custom Archive After Excerpt Resource Link
+	 * Add a resource link after the excerpt if the custom field is set.
+	 *
+	 * @param string $excerpt the original excerpt.
+	 * @return string the modified excerpt with resource link if applicable.
+	 */
+	public function custom_archive_after_excerpt_resource_link() {
+		$post_id = get_the_ID();
+		if ( 'resource_link' !== get_post_type( $post_id ) ) {
+			return;
+		}
+		if ( ! function_exists( 'get_field' ) ) {
+			return;
+		}
+		echo '<div class="ck-archive-resource-notes">'; // phpcs:ignore
+		the_field( 'resource_notes' );
+		$custom_link = get_field( 'resource_link_spanish', $post_id );
+		if ( ! empty( $custom_link ) ) {
+			$link = '';
+			if ( isset( $custom_link['pdf'] ) && ! empty( $custom_link['pdf'] ) ) {
+				$link = $custom_link['pdf'];
+			} elseif ( isset( $custom_link['url'] ) && ! empty( $custom_link['url'] ) ) {
+				$link = $custom_link['url'];
+			}
+			if ( ! empty( $link ) ) {
+				echo '<p>Also available in <a class="resource-link" target="_blank" href="' . esc_url( $link ) . '">Spanish</a></p>';
+			}
+		}
+
+		/** show an edit link in the REST API context */
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST && isset( $_GET['context'] ) && $_GET['context'] === 'edit' ) {
+			echo '<a class="edit-link hide-frontend" target="_blank" href="' . esc_url( get_edit_post_link( $post->ID ) ) . '">Edit</a>';
+		}
+
+		echo '</div>'; // phpcs:ignore
+	}
 
 	/**
 	 * Customize excerpt more ending
@@ -82,14 +158,15 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 */
 	public function template_tags(): array {
 		return array(
-			'get_social_links'        => array( $this, 'get_social_links' ),
+			'get_social_links'          => array( $this, 'get_social_links' ),
 
-			'get_random_images_array' => array( $this, 'get_random_images_array' ),
-			'get_custom_excerpt'      => array( $this, 'get_custom_excerpt' ),
-			'make_social_share_links' => array( $this, 'make_social_share_links' ),
-			'make_breadcrumbs'        => array( $this, 'make_breadcrumbs' ),
-			'has_page_thumbnail'      => array( $this, 'has_page_thumbnail' ),
-			'get_top_level_parent'    => array( $this, 'get_top_level_parent' ),
+			'get_random_images_array'   => array( $this, 'get_random_images_array' ),
+			'get_custom_excerpt'        => array( $this, 'get_custom_excerpt' ),
+			'make_social_share_links'   => array( $this, 'make_social_share_links' ),
+			'make_breadcrumbs'          => array( $this, 'make_breadcrumbs' ),
+			'has_page_thumbnail'        => array( $this, 'has_page_thumbnail' ),
+			'get_top_level_parent'      => array( $this, 'get_top_level_parent' ),
+			'get_top_level_parent_term' => array( $this, 'get_top_level_parent_term' ),
 		);
 	}
 
@@ -169,7 +246,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	private function make_fb_button( $text = null ) {
 		$url = get_the_permalink();
 
-		$fb_link = '<a class="share-link" href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $url ) . '"' . $this->make_new_window() . ' title="Share on Facebook"><i class="icon-facebook" aria-hidden="true"></i> ' . $text . '</a>'; // phpcs:ignore.
+		$fb_link = '<a class="share-link" href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $url ) . '"' . $this->make_new_window() . ' title="Share on Facebook"><i class="fa-brands fa-facebook-f"></i>' . $text . '</a>'; // phpcs:ignore.
 		return $fb_link;
 	}
 
@@ -181,7 +258,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	private function make_twitter_button( $text = null ) {
 		$url   = get_the_permalink();
 		$title = get_the_title();
-		$tweet = '<a class="share-link" href="http://twitter.com/intent/tweet?text=' . $title . '&url=' . $url . '"' . $this->make_new_window() . ' title="Share on Twitter"><i class="icon-x-twitter" aria-hidden="true"></i>' . $text . '</a>';
+		$tweet = '<a class="share-link" href="http://twitter.com/intent/tweet?text=' . $title . '&url=' . $url . '"' . $this->make_new_window() . ' title="Share on Twitter"><i class="fa-brands fa-x-twitter"></i>' . $text . '</a>';
 		return $tweet;
 	}
 
@@ -193,19 +270,19 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	private function make_email_button( $text = null ) {
 		$url   = get_the_permalink();
 		$title = get_the_title();
-		$email = '<a class="share-link" href="mailto:?subject=' . $title . '&body=' . urlencode( $url ) . '" title="Share Via Email"><i class="icon-mail"  aria-hidden="true"></i> ' . $text . '</a>'; // phpcs:ignore.
+		$email = '<a class="share-link" href="mailto:?subject=' . $title . '&body=' . urlencode( $url ) . '" title="Share Via Email"><i class="fa-regular fa-envelope" aria-hidden="true"></i> ' . $text . '</a>'; // phpcs:ignore.
 		return $email;
 	}
 
 	/**
-	 * Make Email Links
+	 * Make LinkedIn Links
 	 *
 	 * @param string $text optional text before the icon.
 	 */
 	private function make_linkedin_button( $text = null ) {
 		$url   = get_the_permalink();
 		$title = get_the_title();
-		$tweet = '<a class="share-link" href="http://www.linkedin.com/shareArticle?mini=true&url=' . $title . '&url=' . $url . '" ' . $this->make_new_window() . ' title="Share on LinkedIn"><i class="icon-linkedin" aria-hidden="true"></i>' . $text . '</a>';
+		$tweet = '<a class="share-link" href="http://www.linkedin.com/shareArticle?mini=true&url=' . $title . '&url=' . $url . '" ' . $this->make_new_window() . ' title="Share on LinkedIn"><i class="fa-brands fa-linkedin-in"></i>' . $text . '</a>';
 		return $tweet;
 	}
 	/**
@@ -216,8 +293,15 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	private function make_bluesky_button( $text = null ) {
 		$url   = get_the_permalink();
 		$title = get_the_title();
-		$tweet = '<a class="share-link" href="https://bsky.app/intent/compose?text=' . $title . '&url=' . $url . '" ' . $this->make_new_window() . ' title="Share on Bluesky"><i class="icon-bluesky" aria-hidden="true"></i>' . $text . '</a>';
+		$tweet = '<a class="share-link" href="https://bsky.app/intent/compose?text=' . $title . '&url=' . $url . '" ' . $this->make_new_window() . ' title="Share on Bluesky"><i class="fa-brands fa-bluesky"></i>' . $text . '</a>';
 		return $tweet;
+	}
+	/** Check to see if it has http, if not, add it */
+	function make_url( $string ) {
+		if ( ! preg_match( '~^(?:f|ht)tps?://~i', $string ) ) {
+			$string = 'http://' . $string;
+		}
+		return $string;
 	}
 
 
@@ -228,7 +312,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param string $text optional text before the icon.
 	 */
 	private function make_print_button( $text = null ) {
-		$email = '<a class="share-link print-this-js" href="#" title="Print this Page"><i class="icon-print" aria-hidden="true"></i> ' . $text . '</a>';
+		$email = '<a class="share-link print-this-js" href="#" title="Print this Page"><i class="fa-solid fa-print" aria-hidden="true"></i> ' . $text . '</a>';
 		return $email;
 	}
 
@@ -240,11 +324,10 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	public function make_social_share_links( $echo = false ) {
 		$links = '<ul class="social-share-links list-inline">
 		<li class="list-inline-item social-share-links__label label">Share: </li>
+		<li class="list-inline-item">' . $this->make_email_button() . '</li>
 		<li class="list-inline-item">' . $this->make_fb_button() . '</li>
-		<li class="list-inline-item">' . $this->make_twitter_button() . '</li>
 		<li class="list-inline-item">' . $this->make_bluesky_button() . '</li>
 		<li class="list-inline-item">' . $this->make_linkedin_button() . '</li>
-		<li class="list-inline-item">' . $this->make_email_button() . '</li>
 		<li class="list-inline-item">' . $this->make_print_button() . '</li>
 	</ul>';
 		if ( $echo ) {
@@ -346,8 +429,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	/** Make custom header breadcrumb
 	 *
 	 * @param string $post_type - post type to check for landing page. If not set, will use current post type.
+	 * @param bool   $show_current - whether to show the current page title. Default true.
 	 */
-	public function make_breadcrumbs( $post_type = null ) {
+	public function make_breadcrumbs( $post_type = null, $show_current = true ) {
 		global $post;
 		if ( empty( $post_type ) ) {
 			$post_type = $post->post_type;
@@ -355,11 +439,11 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		$post_types = array();
 		if ( function_exists( 'get_field' ) ) {
 			$landing_pages = get_field( 'acf_landing_page', 'options' ); // set this up as a repeater with post type and landing page.
-			$post_types = wp_list_pluck( $landing_pages, 'landing_page', 'post_type' );
+			$post_types    = wp_list_pluck( $landing_pages, 'landing_page', 'post_type' );
 		}
-		$parent     = 0; // default to no parent
-		$title_id   = $post->ID;
-		$is_h1      = true;
+		$parent = 0; // default to no parent
+
+		$is_h1 = true;
 		if ( isset( $post_types[ $post_type ] ) ) {
 			$parent      = $post_types[ $post_type ];
 			$link_parent = true;
@@ -372,10 +456,13 @@ class Component implements Component_Interface, Templating_Component_Interface {
 				echo '<div class="entry-parent-link all-caps">' . wp_kses_post( get_the_title( $parent ) ) . '</div>';
 			}
 		}
-		if ( $is_h1 ) {
-			echo '<h1>' . esc_html( get_the_title( $title_id ) ) . '</h1>';
-		} else {
-			echo '<div class="h1"><a href="' . esc_url( get_the_permalink( $title_id ) ) . '">' . esc_html( get_the_title( $title_id ) ) . '</a></div>';
+		if ( $show_current ) {
+			$title_id = $post->ID;
+			if ( $is_h1 ) {
+				echo '<h1>' . esc_html( get_the_title( $title_id ) ) . '</h1>';
+			} else {
+				echo '<div class="h1"><a href="' . esc_url( get_the_permalink( $title_id ) ) . '">' . esc_html( get_the_title( $title_id ) ) . '</a></div>';
+			}
 		}
 	}
 
@@ -454,38 +541,57 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		}
 		return $location_html;
 	}
+	/** Get the top level term for a resource post - expanded to make it more flexible */
+	public function get_top_level_parent_term( $post_id, $taxonomy ) {
+		$terms = wp_get_post_terms( $post_id, $taxonomy );
+		if ( empty( $terms ) || is_wp_error( $terms ) ) {
+			return 0;
+		}
+		$term_id = $terms[0]->term_id;
+		$parent  = $terms[0]->parent;
+
+		$top = $parent;
+		if ( 0 === $parent ) {
+			return $term_id;
+		}
+		while ( 0 !== $parent ) {
+			$top    = $parent;
+			$parent = wp_get_term_taxonomy_parent_id( $parent, $taxonomy );
+		}
+		return $top;
+	}
 
 	/** Register template layouts for this component */
 	public function register_template_layouts() {
-		$post_type_object = get_post_type_object( 'carkeek_event' );
+		$post_type_object = get_post_type_object( 'resource' );
 		if ( $post_type_object ) {
 			$post_type_object->template = array(
-				array( 'carkeek-blocks/featured-image', array( 'align' => 'right' ) ),
 				array(
 					'core/group',
 					array(
 						'layout' => array( 'type' => 'constrained' ),
 					),
 					array(
-						array( 'carkeek-events/event-details' ),
-						array(
-							'core/buttons',
-							array(),
-							array(
-								array(
-									'core/button',
-									array(
-										'backgroundColor' => 'accent',
-									),
-								),
-							),
-						),
-						array(
-							'core/paragraph',
-							array(
-								'placeholder' => 'Add event description here...',
-							),
-						),
+						array( 'core/paragraph' ),
+					),
+				),
+				array(
+					'carkeek-blocks/custom-archive',
+					array(
+						'numberOfPosts'        => -1,
+						'postTypeSelected'     => 'resource_link',
+						'displayPostExcerpt'   => false,
+						'displayFeaturedImage' => false,
+						'postLayout'           => 'list',
+						'sortBy'               => 'title',
+						'filterByTaxonomy'     => true,
+						'groupListings'        => true,
+						'groupTaxSelected'     => 'topic',
+						'taxonomySelected'     => 'topic',
+						'newWindow'            => true,
+						'className'            => 'is-style-table',
+						'groupHideParents'     => true,
+						'groupHideEmpty'       => true,
 					),
 				),
 

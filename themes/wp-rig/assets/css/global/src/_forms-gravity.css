@@ -9,7 +9,6 @@
 	& .ginput_complex label,
 	& .gfield_label {
 		font-size: 1.125rem;
-		font-weight: var(--font-weight--light);
 	}
 	& .gfield_checkbox,
 	& .gfield_radio {

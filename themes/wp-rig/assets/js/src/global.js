@@ -1,7 +1,13 @@
 ( function ( $ ) {
 	function moveSearchMobile() {
 		hideSearch();
-		if ( $( window ).width() < 768 ) {
+		if ( $( window ).width() < 1025 ) {
+			$( '#before-navigation .before-navigation__inner' )
+				.detach()
+				.prependTo( '#primary-menu-container' );
+			$( '#after-navigation .after-navigation__inner' )
+				.detach()
+				.appendTo( '#primary-menu-container' );
 			$( '#search_modal .search-dropdown__content' )
 				.detach()
 				.appendTo( '#primary-menu-container' );
@@ -9,6 +15,12 @@
 			$( '#primary-menu-container .search-dropdown__content' )
 				.detach()
 				.prependTo( '#search_modal' );
+			$( '#primary-menu-container .after-navigation__inner' )
+				.detach()
+				.prependTo( '#after-navigation' );
+			$( '#primary-menu-container .before-navigation__inner' )
+				.detach()
+				.prependTo( '#before-navigation' );
 		}
 	}
 

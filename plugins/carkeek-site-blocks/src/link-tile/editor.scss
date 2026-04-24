@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
 
+	& .ck-link-tile__hover_text_edit,
 	& .ck-link-tile__title_edit {
 		text-decoration: none;
 		z-index: 40;

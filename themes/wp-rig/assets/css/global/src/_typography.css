@@ -11,12 +11,14 @@
 	}
 }
 .wp-block-heading {
-	margin-top: 0;
-	margin-bottom: 0;
 	& a {
 		font-weight: inherit;
 		color: inherit;
 	}
+}
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+	margin-bottom: var(--wp--preset--spacing--30);
 }
 
 h1,
@@ -27,6 +29,7 @@ h1,
 	color: var(--wp--preset--color--primary);
 }
 
+.single h1,
 .has-h-2-font-size,
 h2,
 .h2 {
@@ -34,8 +37,10 @@ h2,
 	color: var(--wp--preset--color--primary);
 	font-size: var(--font-size-h2);
 	font-weight: 800;
+	line-height: 1.36;
 }
 
+.single h2,
 .has-h-3-font-size,
 h3,
 .h3 {
@@ -45,6 +50,7 @@ h3,
 	font-weight: 800;
 }
 
+.single h3,
 .has-h-4-font-size,
 h4,
 .h4 {
@@ -54,7 +60,7 @@ h4,
 	font-weight: 700;
 }
 
-
+.single h4,
 .has-h-5-font-size,
 h5,
 .h5 {
@@ -66,6 +72,7 @@ h5,
 	text-transform: uppercase;
 }
 
+.single h5,
 .has-h-6-font-size,
 h6,
 .h6 {
@@ -75,6 +82,21 @@ h6,
 	font-weight: 600;
 }
 
+.has-large-font-size {
+	line-height: 1.7;
+}
+
+.has-xx-large-font-size {
+	font-weight: 800;
+	font-family: $fontFamilyHeadings;
+}
+
+.all-caps {
+	font-family: $fontFamilyHeadings;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.9px;
+}
 
 .entry-header h1.entry-title,
 .page-header .page-title {
@@ -110,3 +132,4 @@ blockquote cite {
 		margin-right: 3px;
 	}
 }
+

@@ -39,7 +39,9 @@ if ( ! empty( $focal_point ) ) {
 
 }
 if ( $is_header ) {
-	$photo_credit = get_field( 'photo_credit', get_post_thumbnail_id() );
+	if ( function_exists( 'get_field' ) ) {
+		$photo_credit = get_field( 'photo_credit', get_post_thumbnail_id() );
+	}
 	$use_opacity  = get_option( '_carkeekblocks_featuredimage_use_opacity', false );
 	if ( true == $use_opacity ) {
 		$image_opacity = get_post_meta( $postid, '_carkeekblocks_featured_image_opacity', true );

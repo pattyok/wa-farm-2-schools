@@ -25,10 +25,10 @@
 }
 
 .menu-toggle-label {
-	display: none;
-	padding-bottom: 10px;
+	padding-top: 6px;
 	color: $hamburgerColor;
 	font-size: 10px;
+	font-weight: 600;
 
 	&.menu-open {
 		display: none;
@@ -44,7 +44,7 @@
 		}
 
 		&.menu-open {
-			display: none;
+			display: block;
 
 		}
 	}
@@ -112,9 +112,10 @@
 
 		& .primary-menu-container {
 			position: fixed;
-			left: 0;
+			right: 0;
 			top: var(--header-height);
 			width: 100vw;
+
 			transform: translate3d(100%, 0, 0);
 			will-change: transform;
 			background-color: $colorNavBackgroundMobile;
@@ -126,13 +127,17 @@
 				position: relative;
 			}
 
-			& > .menu {
-				border-top: 1px solid $colorBorders;
+			& .before-navigation__inner,
+			& .after-navigation__inner {
+				&:has(*) {
+					padding: 1.5625rem;
+				}
 			}
 		}
 
 		&.nav--toggled-on .primary-menu-container {
 			transform: translate3d(0, 0, 0);
+			max-width: 425px;
 			opacity: 1;
 			background-color: $white;
 			transition: transform 0.6s ease;
@@ -147,12 +152,14 @@
 			will-change: transform;
 			right: 0;
 			width: 100vw;
+			max-width: 425px;
 			position: fixed;
 
 			transition: transform 0.6s ease;
-			transform: translate3d(200%, 0, 0);
+			transform: translate3d(100%, 0, 0);
 			transition-delay: 0s;
 			z-index: 2000;
+			border-top: 1px solid $colorBorders;
 		}
 
 	}
@@ -164,6 +171,7 @@
 
 	.nav--toggle-small.nav--toggled-on .sub-menu.toggle-show {
 		transform: translate3d(0, 0, 0);
+
 	}
 
 	.nav--toggle-small.subnav--toggled-on #primary-menu > li:not(.menu-item--toggled-on) {
@@ -202,6 +210,7 @@
 
 			& .dropdown-symbol {
 				background: transparent;
+				border-color: $colorNavLinkHover;
 				right: auto;
 				left: 20px;
 				top: 50%;
@@ -352,7 +361,6 @@ ul.menu {
 		text-align: left;
 		color: $colorNavLinkMobile;
 		font-size: $menuFontSize;
-		border-bottom: 1px solid $colorBorders;
 		background-color: $colorNavBackgroundMobile;
 	}
 
@@ -483,6 +491,8 @@ ul.menu {
 }
 
 
+
+
 @media (--wide-menu-query) {
 	.hide-desktop-menu {
 		display: none;
@@ -491,13 +501,14 @@ ul.menu {
 	.main-navigation {
 		margin: 0;
 		display: flex;
-		justify-content: flex-end;
-		align-items: center;
+		justify-content: center;
+		align-items: flex-end;
+		flex: 1 1 80%;
 
 
 		& .menu {
 			align-items: center;
-			gap: 40px;
+			gap: 2vw;
 		}
 
 		& button {
@@ -532,8 +543,7 @@ ul.menu {
 		display: flex;
 		align-items: center;
 		height: 100%;
-		padding: 0.5rem 1.5rem 0.5rem 1rem;
-
+		padding: 1.25rem 0;
 
 		&::before {
 			content: "";
@@ -550,17 +560,23 @@ ul.menu {
 		& a {
 			padding: 0.5rem 0;
 			position: relative;
-			border-bottom: 2px solid transparent;
+			border-bottom: 3px solid transparent;
+		}
+		&.menu-item-has-children > a {
+			padding-right: 1.5rem;
 		}
 
 		&.current-menu-item,
-		&.current-menu-ancestor {
-
+		&.current-menu-ancestor,
+		&:hover {
 			& > a {
 				background-color: transparent;
-				color: $colorNavLink;
-				border-bottom: 1px solid $colorNavLink;
+				color: $colorNavLinkHover;
+				border-bottom: 3px solid $primaryLight;
 				text-decoration: none;
+			}
+			& .dropdown-symbol {
+				border-color: $colorNavLinkHover;
 			}
 		}
 	}
@@ -572,6 +588,7 @@ ul.menu {
 		min-width: 275px;
 		border: 1px solid $colorSubNavBackground;
 		border-top: none;
+		box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.20);
 		z-index: 1200;
 
 		& .menu-item > a {
@@ -590,9 +607,6 @@ ul.menu {
 
 		& li.menu-item.current-menu-item a {
 			color: $colorNavLinkHover;
-			&:hover {
-				color: #fff;
-			}
 		}
 	}
 
@@ -709,6 +723,45 @@ ul.menu {
 		}
 	}
 }
+
+@media (--mid-menu-query) {
+	.header-nav-wrapper {
+		display: grid;
+		grid-template-columns: 180px 1fr 225px;
+
+		grid-template-areas:
+			"before search after"
+			"nav nav nav";
+
+		& .navigation-left {
+			grid-area: before;
+			justify-content: flex-end;
+		}
+		& .navigation-right {
+			grid-area: after;
+
+			& .after-navigation__inner {
+				display: flex;
+				justify-content: flex-end;
+			}
+		}
+		& .main-navigation {
+			grid-area: nav;
+			justify-content: left;
+		}
+		& .header-search-wrapper {
+			grid-area: search;
+			justify-content: flex-end;
+		}
+	}
+	.primary-menu-container {
+		justify-content: center;
+	}
+	.main-navigation .menu {
+		gap: 40px;
+	}
+}
+
 
 .main-navigation .hide-main {
 	display: none !important;

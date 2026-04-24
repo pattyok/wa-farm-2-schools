@@ -6,6 +6,8 @@ $fontFamilyForms: var(--wp--preset--font-family--headings-sans);
 
 $global: var(--wp--preset--color--contrast);
 $primary: var(--wp--preset--color--primary); /**  green **/
+$primaryDark: var(--wp--preset--color--primary-dark); /**  dark green **/
+$primaryLight: var(--wp--preset--color--primary-light); /** light green **/
 $secondary: var(--wp--preset--color--secondary); /** blue **/
 $accent1: var(--wp--preset--color--accent); /** orange */
 $accent2: var(--wp--preset--color--accent-2); /** gold */
@@ -53,31 +55,31 @@ $colorBorders: var(--wp--preset--color--gray-300);
 $colorBordersDark: var(--wp--preset--color--gray-800);
 $colorSeparator: var(--wp--preset--color--gray-300);
 
-$colorLink: var(--wp--preset--color--primary);
-$colorLinkHover: var(--wp--preset--color--tint-dark);
+$colorLink: var(--wp--preset--color--secondary);
+$colorLinkHover: var(--wp--preset--color--secondary-dark);
 
-$colorNavBackground: var(--wp--preset--color--tint-dark);
-$colorNavLinkMobile: var(--wp--preset--color--base);
-$colorNavBackgroundMobile: var(--wp--preset--color--tint-dark);
-$colorNavLinkHoverMobile: var(--wp--preset--color--base);
-$colorNavLinkActiveMobile: var(--wp--preset--color--base);
-$colorNavLinkHoverBG: var(--wp--preset--color--primary);
+$colorNavBackground: var(--wp--preset--color--base);
+$colorNavLinkMobile: var(--wp--preset--color--secondary);
+$colorNavBackgroundMobile: var(--wp--preset--color--base);
+$colorNavLinkHoverMobile: var(--wp--preset--color--secondary-dark);
+$colorNavLinkActiveMobile: var(--wp--preset--color--secondary-dark);
+$colorNavLinkHoverBG: var(--wp--preset--color--base);
 
-$colorNavLink: var(--wp--preset--color--base);
-$colorNavLinkHover: var(--wp--preset--color--base);
+$colorNavLink: var(--wp--preset--color--secondary);
+$colorNavLinkHover: var(--wp--preset--color--secondary-dark);
 
 
-$colorSubNavBackground: var(--wp--preset--color--tint-dark);
-$colorSubNavLink: var(--wp--preset--color--base);
-$colorSubNavLinkHoverBG: var(--wp--preset--color--primary);
-$colorSubNavLinkHover: var(--wp--preset--color--white);
+$colorSubNavBackground: var(--wp--preset--color--base);
+$colorSubNavLink: var(--wp--preset--color--secondary);
+$colorSubNavLinkHoverBG: var(--wp--preset--color--base);
+$colorSubNavLinkHover: var(--wp--preset--color--secondary-dark);
 
-$colorSubNavLinkMobile: var(--wp--preset--color--base);
+$colorSubNavLinkMobile: var(--wp--preset--color--secondary);
 
-$hamburgerColor: var(--wp--preset--color--tint-dark);
+$hamburgerColor: var(--wp--preset--color--primary-dark);
 $searchIconBGColor: var(--wp--preset--color--base);
-$searchIconBorder: 1px solid var(--wp--preset--color--base);
-$searchIconBorder2x: 2px solid var(--wp--preset--color--base);
+$searchIconBorder: 1px solid var(--wp--preset--color--secondary);
+$searchIconBorder2x: 2px solid var(--wp--preset--color--secondary);
 $searchIconBorderHover: var(--wp--preset--color--contrast);
 $searchIconBGColorHover: transparent;
 $formsFont: var(--form-field-font-family);

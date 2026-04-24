@@ -175,13 +175,13 @@ function login_styles() {
 	?>
 	<style type="text/css">
 		body.login {
-			background-color:#FAF8F2;
+			background: linear-gradient(90deg, #0D5B0E 0%, #328F41 100%);
 		}
 		body.login div#login h1 {
 			text-align: center;
 		}
 		body.login div#login h1 a {
-			background-image: url(<?php echo esc_url( get_theme_file_uri( 'assets/images/logo.png' ) ); ?>);
+			background-image: url(<?php echo esc_url( get_theme_file_uri( 'assets/images/logo_reverse.png' ) ); ?>);
 			background-size: contain;
 			background-position: center;
 			width: 600px;
@@ -193,14 +193,22 @@ function login_styles() {
 			border-color: #ccc;
 		}
 		#wp-submit {
-			background-color:rgb(255 204 74);
-			border-color: rgb(255 204 74);
-			color: rgb(16 23 44 );
+			background-color: #E95234;
+			border-color: #E95234;
+			color: #fff;
 		}
 		a,
 		body.login #nav a,
 		body.login #backtoblog a {
-			color: rgb(16 23 44 );
+			color: #fff;
+
+		}
+		a:hover,
+		body.login #nav a:hover,
+		body.login #backtoblog a:hover {
+			color: #fff;
+			text-decoration: underline;
+
 		}
 		body.login .message, body.login .notice, body.login .success {
 			border-color: #5B6593;
@@ -312,9 +320,9 @@ function add_dashboard_widgets() {
 			$logo = wp_get_attachment_image_src( $logo, 'full' );
 			$logo = $logo[0];
 		} else {
-			$logo = get_theme_file_uri( 'assets/images/logo.webp' );
+			$logo = get_theme_file_uri( 'assets/images/logo.png' );
 		}
-		$documentation_url = 'https://docs.google.com/document/d/1_YlqgIUbNFZTNCjO9-gmDgy5drTpEnjpbtMl-cXEmNI/edit?usp=sharing';
+		$documentation_url = 'https://docs.google.com/document/d/1vx3daDtzjs1ICGnNJzTTS7a7_4luPCXMYObZBNUeSJY/edit?usp=sharing';
 		$content = '<div class="ck-dashboard-widget">';
 		$content .= '<img style="width:300px;max-width:100%;height:auto;" src="' . esc_url( $logo ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" /><h2>' . esc_html( get_bloginfo( 'name' ) ) . '</h2>';
 

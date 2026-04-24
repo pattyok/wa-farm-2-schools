@@ -2,48 +2,17 @@
 
 .wp-block-button {
 
-	& .wp-block-button__link {
-		word-break: normal;
-
-
-		&.has-primary-background-color {
-			&:visited {
-				color: #fff;
-			}
-
-			&:hover {
-				background-color: #fff !important;
-				border-color: currentColor;
-				color: $primary;
-				text-decoration: none;
-			}
-
-
-		}
-		&.has-accent-background-color {
-			&:visited {
-				color: #fff;
-			}
-			&:hover {
-				background-color: #fff !important;
-				border-color: currentColor;
-				color: $accent1;
-				text-decoration: none;
-			}
-
-		}
-	}
-
 	&.is-style-arrow-link {
 		padding: 0;
 
 		& .wp-block-button__link {
 			background-color: transparent;
 			padding: 0;
-			text-transform: uppercase;
 			color: var(--wp--preset--color--accent);
-			font-weight: 900;
+			font-weight: 700;
+			font-family: var(--wp--preset--font-family--headings-sans);
 			text-align: left;
+			text-transform: none;
 			font-size: var(--font-size-cta);
 			border: none;
 			position: relative;
@@ -54,12 +23,12 @@
 				background-color: currentcolor;
 				content: "";
 				display: inline-block;
-				height: 23px;
-				width: 21px;
+				height: 16px;
+				width: 13px;
 				margin-left: 6px;
 
 				mask-image: url(../../images/cta_arrow.svg);
-				mask-size: 23px auto;
+				mask-size: auto 16px;
 				mask-repeat: no-repeat;
 				mask-position: center right;
 				transform-origin: left;
