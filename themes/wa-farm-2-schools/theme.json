@@ -455,7 +455,8 @@
 					"fontFamily": "var:preset|font-family|headings",
 					"textTransform": "uppercase",
 					"fontSize": "var:preset|font-size|small",
-					"fontWeight": "900"
+					"fontWeight": "900",
+					"letterSpacing": "0.32px"
 				},
 				":hover":{
 					"color": {

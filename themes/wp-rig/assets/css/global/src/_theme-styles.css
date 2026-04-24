@@ -221,11 +221,7 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 		}
 	}
 }
-.carkeek-archive.is-list {
-	& .ck-custom-archive__list.alignwide {
-		max-width: var(--content-width);
-	}
-}
+
 .carkeek-archive.is-fit {
 	& a.ck-custom-archive-title_link:hover {
 		text-decoration: none;
@@ -241,17 +237,21 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 			color: $primary;
 
 		}
+		& .entry-parent-link {
+			color: var(--wp--preset--color--primary);
+		}
 		& .ck-custom-archive-item-date {
 			font-family: var(--wp--preset--font-family--headings-sans);
 			margin-bottom: 1rem;
 			display: block;
 		}
-		& .ck-custom-archive__content-wrap {
+
+	}
+	& .ck-custom-archive__content-wrap {
 			display: flex;
 			flex-direction: column;
 			gap: 0.5rem;
 		}
-	}
 	&.is-style-borders.alignfull {
 		& .ck-custom-archive__list {
 			max-width: none;
@@ -284,6 +284,9 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 			&:nth-child(odd) {
 				flex-direction: row;
 			}
+		}
+		& .ck-custom-archive__content-wrap {
+			gap: 1rem;
 		}
 		& .ck-custom-archive-image-link {
 			margin: 0;
@@ -390,7 +393,6 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 		& .ck-custom-archive-title_link {
 			font-family: var(--wp--preset--font-family--global);
 			font-size: var(--wp--preset--font-size--base);
-			font-weight: 600;
 			color: $colorLink;
 			&:hover {
 				text-decoration: underline;

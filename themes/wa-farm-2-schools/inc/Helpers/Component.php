@@ -48,6 +48,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 		add_filter( 'ck_custom_archive_resource_link__link', array( $this, 'custom_archive_link' ), 10, 3 );
 		add_action( 'ck_custom_archive_layout__after_excerpt', array( $this, 'custom_archive_after_excerpt_resource_link' ) );
+
+		add_filter( 'ck_custom_archive_post__meta_before_title', array( $this, 'custom_archive_meta_before_post_title' ), 10, 2 );
 	}
 
 	/** Custom Archive Title
@@ -88,6 +90,19 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			$link = $custom_link['url'];
 		}
 		return $link;
+	}
+
+	/** if the archive has class archive-link add before the post title */
+	public function custom_archive_meta_before_post_title( $meta, $data ) {
+		if ( strpos( $data->className, 'has-archive-link' ) !== false ) {
+			$link = $this->make_breadcrumbs( 'post', false, false );
+			if ( ! empty( $link ) ) {
+				$meta = $link;
+			}
+		}
+		error_log( 'meta before title filter called' );
+		error_log( 'data: ' . print_r( $data, true ) );
+		return $meta;
 	}
 
 	/** Custom Archive After Excerpt Resource Link
@@ -430,8 +445,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *
 	 * @param string $post_type - post type to check for landing page. If not set, will use current post type.
 	 * @param bool   $show_current - whether to show the current page title. Default true.
+	 * @param bool   $echo_result - whether to echo the result or return it. Default true.
 	 */
-	public function make_breadcrumbs( $post_type = null, $show_current = true ) {
+	public function make_breadcrumbs( $post_type = null, $show_current = true, $echo_result = true ) {
 		global $post;
 		if ( empty( $post_type ) ) {
 			$post_type = $post->post_type;
@@ -449,20 +465,27 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			$link_parent = true;
 		}
 
+		$breacrumbs = '';
+
 		if ( 0 !== $parent && ! empty( $parent ) ) {
 			if ( $link_parent ) {
-				echo '<a class="entry-parent-link all-caps" href="' . esc_url( get_the_permalink( $parent ) ) . '">' . wp_kses_post( get_the_title( $parent ) ) . '</a>';
+				$breacrumbs .= '<a class="entry-parent-link all-caps" href="' . esc_url( get_the_permalink( $parent ) ) . '">' . wp_kses_post( get_the_title( $parent ) ) . '</a>';
 			} else {
-				echo '<div class="entry-parent-link all-caps">' . wp_kses_post( get_the_title( $parent ) ) . '</div>';
+				$breacrumbs .= '<div class="entry-parent-link all-caps">' . wp_kses_post( get_the_title( $parent ) ) . '</div>';
 			}
 		}
 		if ( $show_current ) {
 			$title_id = $post->ID;
 			if ( $is_h1 ) {
-				echo '<h1>' . esc_html( get_the_title( $title_id ) ) . '</h1>';
+				$breacrumbs .= '<h1>' . esc_html( get_the_title( $title_id ) ) . '</h1>';
 			} else {
-				echo '<div class="h1"><a href="' . esc_url( get_the_permalink( $title_id ) ) . '">' . esc_html( get_the_title( $title_id ) ) . '</a></div>';
+				$breacrumbs .= '<div class="h1"><a href="' . esc_url( get_the_permalink( $title_id ) ) . '">' . esc_html( get_the_title( $title_id ) ) . '</a></div>';
 			}
+		}
+		if ( $echo_result ) {
+			echo $breacrumbs; // phpcs:ignore
+		} else {
+			return $breacrumbs;
 		}
 	}
 
