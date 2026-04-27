@@ -90,7 +90,7 @@
 				},
 				{
 					"name": "X-Small",
-					"size": "25px",
+					"size": "20px",
 					"slug": "30"
 				},
 				{
@@ -377,6 +377,12 @@
 					"color": "currentColor",
 					"style": "solid",
 					"width": "0 0 2px 0"
+				},
+				"spacing": {
+					"margin": {
+						"top": "var:preset|spacing|70",
+						"bottom": "var:preset|spacing|70"
+					}
 				},
 				"variations": {
 					"wide": {

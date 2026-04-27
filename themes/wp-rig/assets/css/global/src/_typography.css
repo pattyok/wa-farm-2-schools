@@ -29,7 +29,7 @@ h1,
 	color: var(--wp--preset--color--primary);
 }
 
-.single h1,
+.single-post h1,
 .has-h-2-font-size,
 h2,
 .h2 {
@@ -40,7 +40,7 @@ h2,
 	line-height: 1.36;
 }
 
-.single h2,
+.single-post h2,
 .has-h-3-font-size,
 h3,
 .h3 {
@@ -50,7 +50,7 @@ h3,
 	font-weight: 800;
 }
 
-.single h3,
+.single-post h3,
 .has-h-4-font-size,
 h4,
 .h4 {
@@ -60,7 +60,7 @@ h4,
 	font-weight: 700;
 }
 
-.single h4,
+.single-post h4,
 .has-h-5-font-size,
 h5,
 .h5 {
@@ -72,7 +72,7 @@ h5,
 	text-transform: uppercase;
 }
 
-.single h5,
+.single-post h5,
 .has-h-6-font-size,
 h6,
 .h6 {

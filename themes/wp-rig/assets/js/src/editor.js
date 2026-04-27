@@ -256,6 +256,15 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		attributes: { height: '36px' },
 		scope: [ 'inserter' ],
 	} );
+
+	wp.blocks.registerBlockVariation( 'core/separator', {
+		name: 'separator',
+		title: 'Separator',
+		isDefault: true,
+		attributes: { align: 'full' },
+		scope: [ 'inserter' ],
+		keywords: [ 'hr', 'separator' ],
+	} );
 } );
 
 //Set the defaults on core blocks that we want to modify.

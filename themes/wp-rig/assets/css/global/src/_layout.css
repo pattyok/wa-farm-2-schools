@@ -35,7 +35,7 @@
 	& > [class*="wp-block"] {
 		margin-bottom: var(--wp--preset--spacing--40);
 	}
-
+	& > .wp-block-separator,
 	& > .wp-block-group,
 	& > .wp-block-cover,
 	& > .wp-block-media-text,
@@ -45,6 +45,10 @@
 
 
 		&.has-background:last-child {
+			margin-bottom: 0;
+		}
+		& ul, ol {
+			margin-top: 0;
 			margin-bottom: 0;
 		}
 	}
