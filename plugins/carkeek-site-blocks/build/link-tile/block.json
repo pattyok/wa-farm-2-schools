@@ -1,8 +1,8 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "carkeek-blocks/link-tile",
-  "version": "0.1.0",
+  "version": "0.1.01",
   "title": "Link Tile",
   "category": "widgets",
   "icon": "admin-links",

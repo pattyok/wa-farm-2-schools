@@ -50,8 +50,6 @@ class CarkeekSiteBlocks_Block_Register {
 		$this->slug = 'carkeek-site-blocks';
 
 		add_action( 'init', array( $this, 'carkeek_blocks_register_blocks' ), 9999 );
-
-
 	}
 
 	/**
@@ -59,12 +57,9 @@ class CarkeekSiteBlocks_Block_Register {
 	 */
 	public function carkeek_blocks_register_blocks() {
 
-		$dir = plugin_dir_path( dirname( __FILE__ ) );
+		$dir = plugin_dir_path( __DIR__ );
 		register_block_type( "$dir/build/link-tiles" );
 		register_block_type( "$dir/build/link-tile" );
-
-		register_block_type( "$dir/build/expand-collapse-section" );
-
 	}
 
 	/** Get Selected or Random Color
@@ -244,23 +239,18 @@ class CarkeekSiteBlocks_Block_Register {
 				}
 				$post_html .= '</div>';
 				$posts     .= apply_filters( 'carkeek_block_custom_post_layout', $post_html, $post, $attributes );
-				$count++;
+				++$count;
 			}
 			$posts .= '</div></div>';
 			wp_reset_postdata();
 			return $posts;
-		} else {
-			if ( false === $attributes['hideIfEmpty'] ) {
+		} elseif ( false === $attributes['hideIfEmpty'] ) {
 				$block_content = '<div class="' . $class_pre . '__list empty">' . $attributes['emptyMessage'] . '</div>';
 				return $block_start . $block_content . '</div>';
-			} else {
-				return;
-			}
+		} else {
+			return;
 		}
 	}
-
-
-
 }
 
 CarkeekSiteBlocks_Block_Register::register();
