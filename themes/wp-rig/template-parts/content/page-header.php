@@ -96,6 +96,10 @@ if ( is_404() ) {
 	$header_content = '';
 	$header_style   = '';
 
+	if ( 'post' === get_post_type() ) {
+		$hide_title = true;
+	}
+
 
 	if ( true !== $hide_image && ( has_post_thumbnail() ) ) {
 		$header_class .= 'has-post-thumbnail';
