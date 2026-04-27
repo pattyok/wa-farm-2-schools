@@ -60,11 +60,6 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 	max-height: 800px;
 }
 
-.wp-block-carkeek-blocks-widget-row {
-
-}
-
-
 
 .wp-block-carkeek-blocks-widget-row[class*=is-style-border-] .ck-columns__wrap > * {
 	--ck-column-gap: 5rem;
@@ -99,12 +94,14 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 	}
 }
 
+
 .carkeek-archive.is-grid {
 	--modal-header-padding: 0;
+	& .ck-modal-item-name,
 	& .ck-custom-archive-title_link {
-		color: var(--wp--preset--color--accent);
-		font-family: var(--wp--preset--font-family--headings-sans);
-		font-weight: 600;
+		color: var(--wp--preset--color--primary);
+		font-family: var(--wp--preset--font-family--headings);
+		font-weight: 700;
 		font-size: var(--font-size-h4);
 	}
 
@@ -147,12 +144,12 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 		max-width: 600px;
 	}
 	& .modal__close-btn--inner {
-		color: #fff;
-		background-color: $accent1;
+		color: $primary;
+		background-color: transparent;
 		border-radius: 0;
 		&:hover {
-			background-color: #fff;
-			color: $accent1;
+			background-color: $primary;
+			color: #fff;
 		}
 	}
 	& .modal-body {
@@ -167,16 +164,22 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 			object-fit: cover;
 		}
 		& .ck-modal-item-name {
-			font-family: var(--wp--preset--font-family--headings-sans);
+			font-family: var(--wp--preset--font-family--headings);
 			font-weight: 700;
 			font-size: var(--font-size-h4);
-			color: $accent1;
+			color: $primary;
 			margin: 0;
 
 		}
 	}
 	& .modal-footer {
 		display: none;
+	}
+}
+
+.carkeek-archive.aligncenter {
+	& .ck-columns__item {
+		text-align: center;
 	}
 }
 
@@ -195,47 +198,34 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 	--slide-gutter: 0;
 }
 
-.wp-block-carkeek-blocks-custom-archive {
-	& .ck-item-event-date {
-		font-family: var(--wp--preset--font-family--headings);
-		font-weight: 700;
-		font-size: var(--font-size-h3);
-		color: $primary;
-
-	}
-
-	&.post-type-vol_event,
-	&.post-type-event {
-		& .ck-custom-archive-title {
-			font-family: var(--wp--preset--font-family--headings-sans);
-			font-weight: 600;
-			font-size: 1.4275rem;
-			& a {
-				font-weight: 600;
-			}
-		}
-	}
-	&.has-secondary-background-color {
-		& .ck-item-event-date {
-			color: $white;
-		}
-	}
-}
 
 .carkeek-archive.is-fit {
 	& a.ck-custom-archive-title_link:hover {
 		text-decoration: none;
 	}
 }
+
+.carkeek-archive {
+	& .ck-custom-archive-title_link {
+		margin: 0;
+		font-size: var(--font-size-h4);
+		font-family: var(--wp--preset--font-family--headings);
+		line-height: 1.125;
+		color: $primary;
+		font-weight: 700;
+	}
+}
+
+.wp-block-carkeek-blocks-custom-archive.is-ul {
+	& .ck-custom-archive-list-item {
+		margin-bottom: 1rem;
+	}
+}
+
 .wp-block-carkeek-blocks-custom-archive.is-list {
 	& .ck-columns-item {
 		& .ck-custom-archive-title_link {
-			margin: 0;
-			font-size: var(--font-size-h4);
-			font-family: var(--wp--preset--font-family--headings);
 			line-height: 1.125;
-			color: $primary;
-
 		}
 		& .entry-parent-link {
 			color: var(--wp--preset--color--primary);

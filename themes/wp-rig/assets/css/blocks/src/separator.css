@@ -8,7 +8,7 @@
 
 	/** override index **/
 
-	height: 1px !important;
+	height: 2px !important;
 	width: 100% !important;
 
 	margin-top: var(--wp--preset--spacing--60);

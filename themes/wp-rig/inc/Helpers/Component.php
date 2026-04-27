@@ -50,6 +50,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_action( 'ck_custom_archive_layout__after_excerpt', array( $this, 'custom_archive_after_excerpt_resource_link' ) );
 
 		add_filter( 'ck_custom_archive_post__meta_before_title', array( $this, 'custom_archive_meta_before_post_title' ), 10, 2 );
+		add_action( 'ck_custom_archive_layout_modal_dialog__after_content', array( $this, 'custom_archive_layout_modal_dialog_after_content' ) );
 	}
 
 	/** Custom Archive Title
@@ -100,8 +101,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 				$meta = $link;
 			}
 		}
-		error_log( 'meta before title filter called' );
-		error_log( 'data: ' . print_r( $data, true ) );
 		return $meta;
 	}
 
@@ -505,6 +504,17 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			$termlink = home_url( '/our-services/' . $term->slug );
 		}
 		return $termlink;
+	}
+
+	/** Add Email to modal dialog content */
+	public function custom_archive_layout_modal_dialog_after_content() {
+		$email = get_field( 'people_email' );
+		$name  = get_the_title();
+		$fname = explode( ' ', $name )[0];
+
+		if ( ! empty( $email ) ) {
+			echo '<a class="ck-modal-item-email" href="mailto:' . esc_attr( $email ) . '"> Contact ' . esc_html( $fname ) . '</a>';
+		}
 	}
 
 	/** Add Job Title to Modal Dialog Content */
