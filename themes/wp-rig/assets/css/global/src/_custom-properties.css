@@ -49,7 +49,7 @@
 	--font-size-button: calc(16 / var(--global-font-size) * 1rem);
 	--font-size-forms: calc(18 / var(--global-font-size) * 1rem);
 	--font-size-caption: calc(18 / var(--global-font-size) * 1rem);
-	--font-size-cta: calc(18  / var(--global-font-size) * 1rem);
+	--font-size-cta: calc(20 / var(--global-font-size) * 1rem);
 	--font-size-quote: calc(22 / var(--global-font-size) * 1rem);
 	--font-size-nav: calc(17 / var(--global-font-size) * 1rem);
 

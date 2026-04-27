@@ -491,8 +491,6 @@ ul.menu {
 }
 
 
-
-
 @media (--wide-menu-query) {
 	.hide-desktop-menu {
 		display: none;
@@ -508,7 +506,7 @@ ul.menu {
 
 		& .menu {
 			align-items: center;
-			gap: 2vw;
+			gap: calc(2vw + 10px);
 		}
 
 		& button {
@@ -739,10 +737,10 @@ ul.menu {
 		}
 		& .navigation-right {
 			grid-area: after;
-
+			align-self: center;
 			& .after-navigation__inner {
 				display: flex;
-				justify-content: flex-end;
+				justify-content: center;
 			}
 		}
 		& .main-navigation {

@@ -78,8 +78,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	wp.blocks.registerBlockStyle( 'core/cover', [
 		{
-			name: 'quote-background',
-			label: 'Quote Background',
+			name: 'video-background',
+			label: 'Video Background',
 		},
 	] );
 

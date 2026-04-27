@@ -51,6 +51,9 @@
 		& .social-share-links {
 			display: flex;
 			gap: 0.5rem;
+			& a {
+				color: var(--wp--preset--color--contrast);
+			}
 		}
 	}
 

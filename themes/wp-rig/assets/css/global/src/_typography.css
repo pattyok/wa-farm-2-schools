@@ -44,7 +44,7 @@ h2,
 .has-h-3-font-size,
 h3,
 .h3 {
-	font-family: $fontFamilyHeadingsSans;
+	font-family: $fontFamilyHeadings;
 	color: var(--wp--preset--color--primary);
 	font-size: var(--font-size-h3);
 	font-weight: 800;
@@ -54,7 +54,7 @@ h3,
 .has-h-4-font-size,
 h4,
 .h4 {
-	font-family: $fontFamilyHeadingsSans;
+	font-family: $fontFamilyHeadings;
 	color: var(--wp--preset--color--global);
 	font-size: var(--font-size-h4);
 	font-weight: 700;
@@ -65,7 +65,7 @@ h4,
 h5,
 .h5 {
 	color: var(--wp--preset--color--global);
-	font-family: $fontFamilyHeadingsSans;
+	font-family: $fontFamilyHeadings;
 	font-size: var(--font-size-h5);
 	font-weight: 600;
 	letter-spacing: 0.9px;
@@ -77,7 +77,7 @@ h5,
 h6,
 .h6 {
 	color: var(--wp--preset--color--global);
-	font-family: $fontFamilyHeadingsSans;
+	font-family: $fontFamilyHeadings;
 	font-size: var(--font-size-h6);
 	font-weight: 600;
 }

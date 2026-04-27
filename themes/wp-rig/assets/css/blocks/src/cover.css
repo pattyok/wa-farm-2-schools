@@ -32,14 +32,17 @@
 	}
 }
 
-.wp-block-cover.is-style-quote-background {
+.wp-block-cover.is-style-video-background {
 	min-height: 350px;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
 }
 
 .wp-block-cover.is-style-page-header {
 	height: 66vw;
 	min-height: 350px !important;
-	max-height: 700px;
+	max-height: 600px;
 	margin-bottom: 0;
 	position: relative;
 }
@@ -49,10 +52,6 @@
 	padding-right: 2rem;
 }
 @media (--tablet-up) {
-
-	.wp-block-cover.is-style-quote-background {
-		min-height: 500px;
-	}
 
 	.wp-block-cover {
 
@@ -79,9 +78,7 @@
 		}
 
 	}
-	.wp-block-cover.is-style-quote-background {
-		min-height: 700px;
-	}
+
 
 	.wp-block-cover .wp-block-pullquote {
 		padding-left: 3.125rem;
