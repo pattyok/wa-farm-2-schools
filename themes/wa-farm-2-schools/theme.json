@@ -269,7 +269,7 @@
 			},
 			"core/column": {
 				"spacing": {
-					"blockGap": "var:preset|spacing|30"
+					"blockGap": "var:preset|spacing|40"
 				}
 			},
 			"core/buttons": {
@@ -339,7 +339,7 @@
 			},
 			"core/group": {
 				"spacing": {
-					"blockGap": "var:preset|spacing|30"
+					"blockGap": "var:preset|spacing|40"
 				}
 			},
 			"core/pullquote": {

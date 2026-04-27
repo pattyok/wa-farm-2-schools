@@ -238,10 +238,10 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 
 	}
 	& .ck-custom-archive__content-wrap {
-			display: flex;
-			flex-direction: column;
-			gap: 0.5rem;
-		}
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
 	&.is-style-borders.alignfull {
 		& .ck-custom-archive__list {
 			max-width: none;
@@ -271,7 +271,7 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 			flex-direction: row-reverse;
 			gap: var(--wp--preset--spacing--40);
 			align-items: center;
-			&:nth-child(odd) {
+			&:nth-child(even) {
 				flex-direction: row;
 			}
 		}
