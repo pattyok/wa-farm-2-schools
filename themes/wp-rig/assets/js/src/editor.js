@@ -193,7 +193,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		attributes: { layout: { inherit: true }, align: 'full', className: 'section' },
 		innerBlocks: [
 			[ 'core/heading', { textAlign: 'center' } ],
-			[ 'core/paragraph', { fontSize: 'default', align: 'center'} ],
+			[ 'core/paragraph', { fontSize: 'default', align: 'center', className: 'is-style-intro-text' } ],
 			[
 				'core/buttons',
 				{ layout: { type: 'flex', justifyContent: 'center' } },
@@ -211,7 +211,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		attributes: { layout: { inherit: true }, align: 'full', backgroundColor: 'tint-lt', className: 'section' },
 		innerBlocks: [
 			[ 'core/heading', { textAlign: 'center' } ],
-			[ 'core/paragraph', { fontSize: 'default', align: 'center'} ],
+			[ 'core/paragraph', { fontSize: 'default', align: 'center', className: 'is-style-intro-text' } ],
 			[
 				'core/buttons',
 				{ layout: { type: 'flex', justifyContent: 'center' } },
@@ -229,7 +229,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		attributes: { layout: { inherit: true }, align: 'full', className: 'section', dimRatio: 20, overlayColor: 'contrast', isUserOverlayColor: true},
 		innerBlocks: [
 			[ 'core/heading', { textAlign: 'center' } ],
-			[ 'core/paragraph', { fontSize: 'default', align: 'center'} ],
+			[ 'core/paragraph', { fontSize: 'default', align: 'center', className: 'is-style-intro-text' } ],
 			[
 				'core/buttons',
 				{ layout: { type: 'flex', justifyContent: 'center' } },
