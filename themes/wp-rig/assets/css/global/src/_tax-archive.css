@@ -2,7 +2,6 @@
 	padding: var(--wp--preset--spacing--50) var(--gutter-width-page);
 	background-color: var(--wp--preset--color--tint-lt);
 	text-align: center;
-	font-size: var(--wp--preset--font-size--x-large);
 }
 
 .region-archive__subterms {
