@@ -85,7 +85,7 @@ if ( is_404() ) {
 
 	</header><!-- .page-header -->
 	<?php
-		the_archive_description( '<div class="archive-description">', '</div>' );
+		the_archive_description( '<div class="archive-description is-style-intro-text">', '</div>' );
 	?>
 	<?php
 } elseif ( is_page() || is_singular() ) {
