@@ -25,6 +25,12 @@
 	}
 }
 
+.is-style-intro-text {
+	font-size: var(--wp--preset--font-size--large);
+	font-family: $fontFamilyHeadings;
+	line-height: 1.7;
+}
+
 .is-style-footnotes {
 	font-size: var(--wp--preset--font-size--small);
 	font-style: italic;

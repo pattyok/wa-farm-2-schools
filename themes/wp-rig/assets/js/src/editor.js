@@ -98,6 +98,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		},
 	] );
 
+	wp.blocks.registerBlockStyle( 'core/paragraph', [
+		{
+			name: 'intro-text',
+			label: 'Intro Text',
+		},
+	] );
+
 
 
 	wp.blocks.registerBlockStyle( 'core/columns', [
@@ -244,7 +251,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			style: { spacing: { padding: {top: 'var:preset|spacing|60', bottom: 'var:preset|spacing|60'} } },
 			backgroundColor: 'tint-lt',
 			className: 'page-intro' },
-		innerBlocks: [ [ 'core/paragraph', { fontSize: 'large', align: "center" } ] ],
+		innerBlocks: [ [ 'core/paragraph', { fontSize: 'large', align: "center", className: 'is-style-intro-text' } ] ],
 		scope: [ 'inserter' ],
 		keywords: [ 'intro', 'page-intro' ],
 	} );
