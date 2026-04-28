@@ -218,6 +218,7 @@ ul.ck-blocks-gallery-grid.fixed-images li.ck-blocks-gallery-grid-item img {
 		line-height: 1;
 		& .ck-custom-archive-title_link {
 			font-size: var(--font-size-h3);
+			font-weight: 800;
 		}
 	}
 }

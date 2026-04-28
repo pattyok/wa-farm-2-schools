@@ -1,10 +1,14 @@
 .wp-block-pullquote {
 	border: none;
+
 	& p {
+		font-family: var(--wp--preset--font-family--headings);
 		font-size: var(--wp--preset--font-size--x-large);
-		font-weight: 700;
+		font-weight: 600;
+		line-height: 1.6;
 	}
 	& cite {
 		text-transform: none;
+		font-weight: 600;
 	}
 }
