@@ -164,12 +164,13 @@
 				}
 			}
 		}
-		@media (max-width: 600px) {
+		@media (max-width: 900px) {
 			& .ck-link-tile__title {
 				font-size: 1.25rem;
 			}
 				& .ck-link-tile__hover {
 					font-size: 0.875rem;
+					font-weight: 500;
 				}
 			}
 

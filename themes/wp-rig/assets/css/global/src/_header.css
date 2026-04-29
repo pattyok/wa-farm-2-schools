@@ -95,7 +95,7 @@
 
 		width: 100%;
 		padding-left: 1rem;
-		padding-right: 1rem;
+		padding-right: 2.5rem;
 	}
 
 	.site-branding {
@@ -177,7 +177,7 @@
 
 
 	button.search-toggle {
-		margin-bottom: 1rem;
+		margin-bottom: 1.6rem;
 	}
 
 	.navigation-left,
