@@ -33,7 +33,7 @@ get_header();
 						'hide_empty' => true,
 					)
 				);
-
+				$is_county = true;
 				if ( ! empty( $sub_terms ) ) {
 					?>
 					<div class="region-archive__subterms">
@@ -47,24 +47,31 @@ get_header();
 						</ul>
 					</div>
 					<?php
-
-					foreach ( $sub_terms as $sub_term ) {
-						?>
+				} else {
+					$is_county = false;
+					$sub_terms = array( $current_term ); // Treat current term as the only term if no sub-terms exist
+				}
+				foreach ( $sub_terms as $sub_term ) {
+					$label = $is_county ? $sub_term->name . ' County' : $sub_term->name;
+					?>
 						<div class="region-archive__subterm" id="<?php echo esc_attr( $sub_term->slug ); ?>">
-						<h2><?php echo esc_html( $sub_term->name ); ?> County</h2>
+						<h2><?php echo esc_html( $label ); ?></h2>
 						<div class="region-archive__subterm-header">
 							<div class="region-archive__subterm-header-title">Member Organization</div>
 							<div class="region-archive__subterm-header-areas">Area of Work</div>
 						</div>
 						<?php
 						// 2. Query posts for each sub-term
-						$args      = array(
+						$args = array(
 							'post_type' => 'network_member', // Replace with your CPT if needed
+							'orderby'   => 'title',
+							'order'     => 'ASC',
 							'tax_query' => array(
 								array(
 									'taxonomy' => $current_term->taxonomy,
 									'field'    => 'term_id',
 									'terms'    => $sub_term->term_id,
+
 								),
 							),
 						);
@@ -81,8 +88,8 @@ get_header();
 						?>
 						</div>
 						<?php
-					}
 				}
+
 				?>
 				</div>
 

@@ -62,7 +62,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	public function custom_archive_title( $title ) {
 		$title = single_term_title( '', false );
 
-		if ( is_tax( 'region' ) ) {
+		if ( is_tax( 'region' ) && str_contains( $title, 'State' ) === false ) {
 			$title = $title . ' Region';
 		}
 

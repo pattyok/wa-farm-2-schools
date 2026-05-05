@@ -60,3 +60,27 @@
 	gap: 20px;
 
 }
+
+.wp-block-carkeek-blocks-taxonomy-terms {
+	& > ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem 2.5rem;
+		justify-content: center;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+
+		& li {
+			& a {
+				color: var(--wp--preset--color--primary);
+				font-weight: 700;
+				font-size: 1.25rem;
+				font-family: var(--wp--preset--font-family--headings);
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}
