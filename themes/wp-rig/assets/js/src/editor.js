@@ -172,6 +172,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			align: 'wide',
 			verticalAlignment: 'middle',
 			imageFill: true,
+			ckShowPhotoCredit: true,
 		},
 		scope: [ 'inserter' ],
 		keywords: [ 'image', 'media-text' ],
