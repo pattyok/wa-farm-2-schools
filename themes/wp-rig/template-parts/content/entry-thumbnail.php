@@ -40,9 +40,9 @@ if ( ! empty( $focal_point ) ) {
 }
 if ( $is_header ) {
 	if ( function_exists( 'get_field' ) ) {
-		$photo_credit = get_field( 'photo_credit', get_post_thumbnail_id() );
+		$photo_credit = get_field( 'ck_photo_credit', get_post_thumbnail_id() );
 	}
-	$use_opacity  = get_option( '_carkeekblocks_featuredimage_use_opacity', false );
+	$use_opacity = get_option( '_carkeekblocks_featuredimage_use_opacity', false );
 	if ( true == $use_opacity ) {
 		$image_opacity = get_post_meta( $postid, '_carkeekblocks_featured_image_opacity', true );
 		// if 101 that is default, so set to 0.

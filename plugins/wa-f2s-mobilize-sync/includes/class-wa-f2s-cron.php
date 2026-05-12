@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Wa_F2s_Cron {
 
-	const HOOK = 'wa_f2s_daily_sync';
+	const HOOK        = 'wa_f2s_daily_sync';
+	const MANUAL_HOOK = 'wa_f2s_mobilize_sync_run';
 
 	/**
 	 * Schedules the daily sync event on plugin activation.
@@ -25,8 +26,8 @@ class Wa_F2s_Cron {
 		}
 
 		// Anchor at 02:00 local time, converted to UTC timestamp.
-		$gmt_offset  = (float) get_option( 'gmt_offset', 0 );
-		$local_2am   = strtotime( 'today 02:00:00' ) - (int) ( $gmt_offset * HOUR_IN_SECONDS );
+		$gmt_offset = (float) get_option( 'gmt_offset', 0 );
+		$local_2am  = strtotime( 'today 02:00:00' ) - (int) ( $gmt_offset * HOUR_IN_SECONDS );
 
 		// If 2am has already passed today, schedule for tomorrow.
 		if ( $local_2am <= time() ) {
@@ -49,25 +50,30 @@ class Wa_F2s_Cron {
 	 */
 	public static function register_callback(): void {
 		add_action( self::HOOK, array( static::class, 'run' ) );
+		add_action( self::MANUAL_HOOK, array( static::class, 'run' ) );
+	}
+
+	/**
+	 * Aligns schedule state with settings.
+	 *
+	 * Built-in WP-Cron scheduling is opt-in. When disabled, existing scheduled
+	 * hooks are cleared so external cron plugins can control timing instead.
+	 */
+	public static function sync_schedule_state(): void {
+		$settings = wa_f2s_get_settings();
+		$enabled  = ! empty( $settings['enable_wp_cron'] );
+
+		if ( $enabled ) {
+			self::schedule();
+		} else {
+			self::unschedule();
+		}
 	}
 
 	/**
 	 * Executes the sync. Runs under WP-Cron — no output, no exit.
 	 */
 	public static function run(): void {
-		if ( ! post_type_exists( 'network_member' ) ) {
-			return;
-		}
-
-		$settings = wa_f2s_get_settings();
-
-		if ( empty( $settings['api_key'] ) || empty( $settings['api_secret'] ) ) {
-			return;
-		}
-
-		$client = new Wa_F2s_Api_Client( $settings['api_key'], $settings['api_secret'], (int) $settings['group_id'] );
-		$mapper = new Wa_F2s_Mapper();
-		$sync   = new Wa_F2s_Sync( $client, $mapper, (int) $settings['group_id'] );
-		$sync->run_full_sync();
+		wa_f2s_run_sync_now();
 	}
 }

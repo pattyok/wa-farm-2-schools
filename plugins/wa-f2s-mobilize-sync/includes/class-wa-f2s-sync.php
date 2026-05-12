@@ -42,7 +42,10 @@ class Wa_F2s_Sync {
 
 		set_transient(
 			'_wa_f2s_sync_running',
-			array( 'pid' => getmypid(), 'started' => time() ),
+			array(
+				'pid'     => getmypid(),
+				'started' => time(),
+			),
 			15 * MINUTE_IN_SECONDS
 		);
 
@@ -84,7 +87,7 @@ class Wa_F2s_Sync {
 		$members = $this->api->get_all_members();
 
 		if ( is_wp_error( $members ) ) {
-			$error_msg = $members->get_error_message();
+			$error_msg                 = $members->get_error_message();
 			$this->summary['errors'][] = 'API error: ' . $error_msg;
 			$this->store_summary();
 			return $this->summary;
@@ -92,6 +95,8 @@ class Wa_F2s_Sync {
 
 		$api_complete = true;
 		$seen_ids     = array();
+		$settings     = wa_f2s_get_settings();
+		$allow_trash  = ! empty( $settings['trash_missing_members'] );
 
 		// Phase 3: Upsert each member — wrap in deferred term counting.
 		wp_defer_term_counting( true );
@@ -116,8 +121,10 @@ class Wa_F2s_Sync {
 
 		// Phase 4: Trash posts for members no longer in Mobilize.
 		// Safety gates: only run if API traversal was complete AND we saw members.
-		if ( $api_complete && ! empty( $seen_ids ) ) {
+		if ( $api_complete && ! empty( $seen_ids ) && $allow_trash ) {
 			$this->summary['trashed'] = $this->trash_removed_members( $id_map, $seen_ids );
+		} elseif ( ! $allow_trash ) {
+			$this->summary['errors'][] = 'Trash pass disabled by settings — members missing from Mobilize were not trashed.';
 		} elseif ( $api_complete && empty( $seen_ids ) ) {
 			$this->summary['errors'][] = 'API returned zero members — trash pass skipped as a safety measure.';
 		}
@@ -133,24 +140,26 @@ class Wa_F2s_Sync {
 	 * @return array{0: array<int,int>, 1: array<int,int>}
 	 */
 	private function build_id_map(): array {
-		$id_map        = array();
+		$id_map         = array();
 		$updated_at_map = array();
 
-		$query = new WP_Query( array(
-			'post_type'              => 'network_member',
-			'post_status'            => 'any',
-			'posts_per_page'         => -1,
-			'fields'                 => 'ids',
-			'no_found_rows'          => true,
-			'update_post_term_cache' => false,
-			'update_post_meta_cache' => false,
-			'meta_query'             => array(
-				array(
-					'key'     => '_wa_f2s_mobilize_member_id',
-					'compare' => 'EXISTS',
+		$query = new WP_Query(
+			array(
+				'post_type'              => 'network_member',
+				'post_status'            => 'any',
+				'posts_per_page'         => -1,
+				'fields'                 => 'ids',
+				'no_found_rows'          => true,
+				'update_post_term_cache' => false,
+				'update_post_meta_cache' => false,
+				'meta_query'             => array(
+					array(
+						'key'     => '_wa_f2s_mobilize_member_id',
+						'compare' => 'EXISTS',
+					),
 				),
-			),
-		) );
+			)
+		);
 
 		foreach ( $query->posts as $post_id ) {
 			$mobilize_id = (int) get_post_meta( $post_id, '_wa_f2s_mobilize_member_id', true );
@@ -359,15 +368,17 @@ class Wa_F2s_Sync {
 		);
 
 		foreach ( $dupes as $dupe ) {
-			$extras = get_posts( array(
-				'post_type'      => 'network_member',
-				'post_status'    => 'any',
-				'meta_key'       => '_wa_f2s_mobilize_member_id',
-				'meta_value'     => $dupe->meta_value,
-				'post__not_in'   => array( (int) $dupe->canonical ),
-				'fields'         => 'ids',
-				'no_found_rows'  => true,
-			) );
+			$extras = get_posts(
+				array(
+					'post_type'      => 'network_member',
+					'post_status'    => 'any',
+					'meta_key'       => '_wa_f2s_mobilize_member_id',
+					'meta_value'     => $dupe->meta_value,
+					'post__not_in'   => array( (int) $dupe->canonical ),
+					'fields'         => 'ids',
+					'no_found_rows'  => true,
+				)
+			);
 
 			foreach ( $extras as $extra_id ) {
 				wp_trash_post( $extra_id );

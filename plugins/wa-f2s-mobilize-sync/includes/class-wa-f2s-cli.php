@@ -48,10 +48,12 @@ class Wa_F2s_CLI_Command extends WP_CLI_Command {
 			WP_CLI::error( $result->get_error_message() );
 		}
 
-		WP_CLI::success( sprintf(
-			'Connection successful. Group ID: %d',
-			$settings['group_id']
-		) );
+		WP_CLI::success(
+			sprintf(
+				'Connection successful. Group ID: %d',
+				$settings['group_id']
+			)
+		);
 
 		if ( isset( $result['count'] ) ) {
 			WP_CLI::log( sprintf( 'Total members in group: %d', $result['count'] ) );
@@ -68,34 +70,22 @@ class Wa_F2s_CLI_Command extends WP_CLI_Command {
 	 * @when after_wp_load
 	 */
 	public function sync(): void {
-		if ( ! post_type_exists( 'network_member' ) ) {
-			WP_CLI::error( 'The network_member post type is not registered. Ensure the active theme is correct.' );
-		}
-
-		$settings = wa_f2s_get_settings();
-
-		if ( empty( $settings['api_key'] ) || empty( $settings['api_secret'] ) ) {
-			WP_CLI::error( 'API key or secret is not configured.' );
-		}
-
 		WP_CLI::log( 'Starting full sync…' );
-
-		$client = new Wa_F2s_Api_Client( $settings['api_key'], $settings['api_secret'], (int) $settings['group_id'] );
-		$mapper = new Wa_F2s_Mapper();
-		$sync   = new Wa_F2s_Sync( $client, $mapper, (int) $settings['group_id'] );
-		$result = $sync->run_full_sync();
+		$result = wa_f2s_run_sync_now();
 
 		if ( isset( $result['error'] ) ) {
 			WP_CLI::error( $result['error'] );
 		}
 
-		WP_CLI::success( sprintf(
-			'Sync complete — Created: %d | Updated: %d | Skipped: %d | Trashed: %d',
-			(int) ( $result['created'] ?? 0 ),
-			(int) ( $result['updated'] ?? 0 ),
-			(int) ( $result['skipped'] ?? 0 ),
-			(int) ( $result['trashed'] ?? 0 )
-		) );
+		WP_CLI::success(
+			sprintf(
+				'Sync complete — Created: %d | Updated: %d | Skipped: %d | Trashed: %d',
+				(int) ( $result['created'] ?? 0 ),
+				(int) ( $result['updated'] ?? 0 ),
+				(int) ( $result['skipped'] ?? 0 ),
+				(int) ( $result['trashed'] ?? 0 )
+			)
+		);
 
 		if ( ! empty( $result['errors'] ) ) {
 			WP_CLI::log( 'Warnings:' );

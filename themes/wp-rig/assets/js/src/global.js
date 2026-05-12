@@ -27,15 +27,16 @@
 	function hideSearch() {
 		$( 'header .search-dropdown' ).attr( 'aria-hidden', true ).slideUp();
 	}
-
+	let headerHeight = $( '.site-header' ).outerHeight();
 	function setHeaderHeight() {
-		let headerHeight = $( '.site-header' ).outerHeight();
+
 		if ( $( 'body' ).hasClass( 'admin-bar' ) ) {
 			headerHeight += $( '#wpadminbar' ).outerHeight();
 		}
 		const root = document.documentElement;
 		root.style.setProperty( '--header-height', headerHeight + 'px' );
 	}
+
 
 	function setPageHeaderHeight() {
 		const pageHeader = $( '.wp-block-cover.is-style-page-header' );
@@ -112,6 +113,14 @@
 			setHeaderHeight();
 			setPageHeaderHeight();
 		} );
+
+		window.addEventListener('scroll', () => {
+		if (window.scrollY > 0) {
+			$( 'body' ).addClass('scrolled');
+		} else {
+			$( 'body' ).removeClass('scrolled');
+		}
+	});
 
 		$( '.info-popover' ).gpopover({width: 300});
 

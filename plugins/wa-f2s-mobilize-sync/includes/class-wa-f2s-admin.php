@@ -50,18 +50,23 @@ class Wa_F2s_Admin {
 		$submitted_key    = sanitize_text_field( wp_unslash( $_POST['wa_f2s_api_key'] ?? '' ) );
 		$submitted_secret = sanitize_text_field( wp_unslash( $_POST['wa_f2s_api_secret'] ?? '' ) );
 
-		$api_key    = '' !== $submitted_key    ? $submitted_key    : $existing['api_key'];
+		$api_key    = '' !== $submitted_key ? $submitted_key : $existing['api_key'];
 		$api_secret = '' !== $submitted_secret ? $submitted_secret : $existing['api_secret'];
 
-		$group_id = absint( $_POST['wa_f2s_group_id'] ?? $existing['group_id'] );
+		$group_id              = absint( $_POST['wa_f2s_group_id'] ?? $existing['group_id'] );
+		$enable_wp_cron        = ! empty( $_POST['wa_f2s_enable_wp_cron'] ) ? 1 : 0;
+		$trash_missing_members = ! empty( $_POST['wa_f2s_trash_missing_members'] ) ? 1 : 0;
 
 		$settings = array(
-			'api_key'    => $api_key,
-			'api_secret' => $api_secret,
-			'group_id'   => $group_id ?: $existing['group_id'],
+			'api_key'               => $api_key,
+			'api_secret'            => $api_secret,
+			'group_id'              => $group_id ?: $existing['group_id'],
+			'enable_wp_cron'        => $enable_wp_cron,
+			'trash_missing_members' => $trash_missing_members,
 		);
 
 		update_option( 'wa_f2s_mobilize_settings', wp_json_encode( $settings ), 'no' );
+		Wa_F2s_Cron::sync_schedule_state();
 
 		wp_safe_redirect(
 			add_query_arg(
@@ -101,7 +106,6 @@ class Wa_F2s_Admin {
 		}
 
 		$settings = wa_f2s_get_settings();
-
 		if ( empty( $settings['api_key'] ) || empty( $settings['api_secret'] ) ) {
 			wp_safe_redirect(
 				add_query_arg(
@@ -116,10 +120,7 @@ class Wa_F2s_Admin {
 			exit;
 		}
 
-		$client = new Wa_F2s_Api_Client( $settings['api_key'], $settings['api_secret'], (int) $settings['group_id'] );
-		$mapper = new Wa_F2s_Mapper();
-		$sync   = new Wa_F2s_Sync( $client, $mapper, (int) $settings['group_id'] );
-		$result = $sync->run_full_sync();
+		$result = wa_f2s_run_sync_now();
 
 		$status = isset( $result['error'] ) ? 'error' : 'done';
 
@@ -183,6 +184,8 @@ class Wa_F2s_Admin {
 
 		$has_api_key       = ! empty( $settings['api_key'] );
 		$has_api_secret    = ! empty( $settings['api_secret'] );
+		$enable_wp_cron    = ! empty( $settings['enable_wp_cron'] );
+		$trash_missing     = ! empty( $settings['trash_missing_members'] );
 		$key_from_const    = defined( 'WA_F2S_MOBILIZE_API_KEY' ) && WA_F2S_MOBILIZE_API_KEY;
 		$secret_from_const = defined( 'WA_F2S_MOBILIZE_API_SECRET' ) && WA_F2S_MOBILIZE_API_SECRET;
 
@@ -255,6 +258,38 @@ class Wa_F2s_Admin {
 								min="1"
 							>
 							<p class="description"><?php esc_html_e( 'The Mobilize group ID to sync. Default: 136728 (WA Farm to School Network).', 'wa-f2s-mobilize-sync' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Built-in WP-Cron', 'wa-f2s-mobilize-sync' ); ?></th>
+						<td>
+							<label for="wa_f2s_enable_wp_cron">
+								<input
+									type="checkbox"
+									id="wa_f2s_enable_wp_cron"
+									name="wa_f2s_enable_wp_cron"
+									value="1"
+									<?php checked( $enable_wp_cron ); ?>
+								>
+								<?php esc_html_e( 'Enable plugin-managed daily sync (2:00 AM server local time).', 'wa-f2s-mobilize-sync' ); ?>
+							</label>
+							<p class="description"><?php esc_html_e( 'Leave this unchecked if you use a cron manager plugin. External schedulers can trigger hook: wa_f2s_mobilize_sync_run.', 'wa-f2s-mobilize-sync' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Missing Member Handling', 'wa-f2s-mobilize-sync' ); ?></th>
+						<td>
+							<label for="wa_f2s_trash_missing_members">
+								<input
+									type="checkbox"
+									id="wa_f2s_trash_missing_members"
+									name="wa_f2s_trash_missing_members"
+									value="1"
+									<?php checked( $trash_missing ); ?>
+								>
+								<?php esc_html_e( 'Trash network_member posts not found in the latest Mobilize response.', 'wa-f2s-mobilize-sync' ); ?>
+							</label>
+							<p class="description"><?php esc_html_e( 'Recommended OFF unless you explicitly want removals. This prevents unexpected large deletions.', 'wa-f2s-mobilize-sync' ); ?></p>
 						</td>
 					</tr>
 				</table>

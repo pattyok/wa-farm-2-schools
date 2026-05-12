@@ -76,7 +76,8 @@
 
 	--header-height: 100px;
 	--header-image-width: 125px;
-	--ck-fixed-image-ratio: 66%;
+	--header-image-width-small: 100px;
+	--ck-fixed-image-ratio: 1.33333;
 	--ck-archive-image-ratio: 72%;
 	--ck-column-gap-vert: 35px;
 	--ck-column-gap: 35px;
@@ -91,6 +92,7 @@
 	:root {
 		--global-font-line-height: 1.44;
 		--header-image-width: 150px;
+		--header-image-width-small: 150px;
 	}
 }
 
