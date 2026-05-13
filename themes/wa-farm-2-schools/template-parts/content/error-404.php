@@ -14,7 +14,7 @@ namespace WP_Rig\WP_Rig;
 	<div class="page-content">
 		<h1 style="margin-top: 3rem">Uh-oh, this page is not found.</h1>
 		<p>
-			<?php echo __( 'Try searching for the page by name. If you think you reached this in error, please <a href="/contact">reach out</a>.', 'wa-farm-2-schools' ); ?>
+			<?php echo __( 'Try searching for the page by name. If you think you reached this in error, please <a href="mailto:info@waf2snetwork.org">reach out</a>.', 'wa-farm-2-schools' ); ?>
 		</p>
 		<div class="page-content-search">
 		<?php
