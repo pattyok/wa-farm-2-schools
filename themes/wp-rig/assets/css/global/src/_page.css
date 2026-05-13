@@ -42,11 +42,13 @@
 		}
 
 	}
+	& .page-title,
 	& .entry-title {
 		padding-top: $spacingSmall;
 		padding-bottom: $spacingSmall;
 		max-width: 100%;
 		margin: 0 var(--padding-responsive-wide);
+		color: $pageHeaderColor;
 		text-align: center;
 		& h1, & .h1 {
 			margin: 0;

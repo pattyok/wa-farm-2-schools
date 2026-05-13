@@ -77,7 +77,7 @@
     "has_archive_slug": "",
     "rewrite": {
         "permalink_rewrite": "post_type_key",
-        "with_front": "1",
+        "with_front": "0",
         "feeds": "0",
         "pages": "1"
     },
@@ -87,5 +87,5 @@
     "delete_with_user": false,
     "register_meta_box_cb": "",
     "enter_title_here": "",
-    "modified": 1776975273
+    "modified": 1778644244
 }
