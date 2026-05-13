@@ -115,3 +115,7 @@
 		--content-width-wide: 60vw;
 	}
 }
+
+.single-people .page-content {
+	padding-top: var(--wp--preset--spacing--50);
+}
