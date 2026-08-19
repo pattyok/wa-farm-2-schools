@@ -150,9 +150,9 @@
 
 }
 
-.page-content > ul.breadcrumbs {
+ul.breadcrumbs {
 	margin-top: var(--wp--preset--spacing--50) !important;
-	margin-bottom: var(--wp--preset--spacing--50);
+	margin-bottom: var(--wp--preset--spacing--50) !important;
 	& li {
 		&:not(:last-child)::after {
 			content: " / ";

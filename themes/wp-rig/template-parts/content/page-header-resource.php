@@ -17,10 +17,10 @@ $parent_term = get_term( $parent_id, 'topic' );
 	</div>
 </div>
 
-<div class="page-content">
+<div class="resources__header">
 	<ul class="breadcrumbs no-bullets list-inline">
 		<li><a href="/resources">Resources</a></li>
 		<li><strong><?php echo esc_html( $parent_term->name ); ?>:</strong> <?php the_title(); ?></li>
 	</ul>
-	<h1 class="page-content__title"><?php the_title(); ?></h1>
+	<h1 class="resources__header__title"><?php the_title(); ?></h1>
 </div>

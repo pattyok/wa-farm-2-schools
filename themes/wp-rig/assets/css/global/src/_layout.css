@@ -103,6 +103,16 @@
 	}
 }
 
+.resources__header {
+	& > * {
+		margin-right: auto !important;
+		margin-left: auto !important;
+		max-width: var(--wp--style--global--content-size);
+
+	}
+
+}
+
 
 .single-entry.page-content {
 	& > :first-child {
